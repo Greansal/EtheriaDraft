@@ -1,23 +1,56 @@
-<div class="teams-area">
-    <div class="team-container">
-        <h3>ÉQUIPE ROUGE</h3>
-        <div class="team-row" id="team-red">
-            <div class="slot">1</div>
-            <div class="slot">2</div>
-            <div class="slot">3</div>
-            <div class="slot">4</div>
-            <div class="slot">5</div>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Etheria Draft</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ETHERIA <span class="highlight">DRAFT</span></h1>
+        <div id="status-message">PHASE : PRE-BAN</div>
+    </header>
 
-    <div class="team-container">
-        <h3>ÉQUIPE BLEUE</h3>
-        <div class="team-row" id="team-blue">
-            <div class="slot">1</div>
-            <div class="slot">2</div>
-            <div class="slot">3</div>
-            <div class="slot">4</div>
-            <div class="slot">5</div>
+    <main class="draft-container">
+        <div class="preban-zone">
+            <div id="preban-1" class="slot active-preban">1</div>
+            <div id="preban-2" class="slot active-preban">2</div>
         </div>
-    </div>
-</div>
+
+        <section class="character-pool">
+            <div class="grid" id="hero-grid">
+                <div class="hero-card" onclick="selectHero('doki')">
+                    <img src="images/doki.png">
+                    <div class="hero-name">Doki</div>
+                </div>
+                </div>
+        </section>
+
+        <div class="teams-area">
+            <div class="team-container">
+                <h3>ÉQUIPE ROUGE</h3>
+                <div class="team-row" id="team-red">
+                    <div class="slot">1</div>
+                    <div class="slot">2</div>
+                    <div class="slot">3</div>
+                    <div class="slot">4</div>
+                    <div class="slot">5</div>
+                </div>
+            </div>
+
+            <div class="team-container">
+                <h3>ÉQUIPE BLEUE</h3>
+                <div class="team-row" id="team-blue">
+                    <div class="slot">1</div>
+                    <div class="slot">2</div>
+                    <div class="slot">3</div>
+                    <div class="slot">4</div>
+                    <div class="slot">5</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
