@@ -73,27 +73,34 @@ header {
 .slot {
     background: #222;
     border: 1px dashed #555;
-    margin: 10px 0;
-    height: 80px;
+    margin: 10px auto; /* Centre le slot horizontalement */
+    width: 100px;      /* Même largeur que tes hero-cards */
+    height: 100px;     /* Même hauteur pour faire un carré */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8em;
+    font-size: 0.7em;
     text-transform: uppercase;
+    overflow: hidden
 }
 
-.slot.ban { border-color: var(--neon-pink); color: var(--neon-pink); height: 50px; }
+.slot.ban { 
+    border-color: var(--neon-pink); 
+    color: var(--neon-pink); 
+    height: 100px; /* On met la même hauteur que le pick pour garder le portrait */
+}
 .slot.pick { border-color: var(--neon-blue); }
 
 .slot img {
     width: 100%;
-    object-fit: cover; /* Coupe l'image pour qu'elle remplisse le cadre sans se déformer */
-    object-position: center 10%; /* Centre l'image sur le haut (là où se trouve la tête) */
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
 .side-left { text-align: left; }
 .side-right { text-align: right; }
+
 
 
 
