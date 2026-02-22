@@ -1,111 +1,48 @@
-:root {
-    --bg-color: #0b0e14;
-    --card-bg: #1a1f26;
-    --neon-blue: #00f2ff;
-    --neon-pink: #ff007a;
-    --text-color: #ffffff;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Etheria Draft Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ETHERIA <span class="highlight">DRAFT</span></h1>
+        <div id="status-message">PHASE : PRE-BAN (2 PERSOS)</div>
+    </header>
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    <main class="draft-container">
+        <div class="preban-zone">
+            <div id="preban-1" class="slot active-preban">PREBAN 1</div>
+            <div id="preban-2" class="slot active-preban">PREBAN 2</div>
+        </div>
 
-header {
-    text-align: center;
-    padding: 10px;
-    border-bottom: 2px solid var(--neon-blue);
-    width: 100%;
-}
+        <section class="character-pool">
+            <div class="grid" id="hero-grid">
+                <div class="hero-card" onclick="selectHero('doki')">
+                    <img src="images/doki.png">
+                    <div class="hero-name">Doki</div>
+                </div>
+                </div>
+        </section>
 
-.highlight { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
-
-/* Conteneur principal */
-.draft-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    width: 95%;
-}
-
-/* Zone du haut : Prebans */
-.preban-zone {
-    display: flex;
-    gap: 50px;
-    background: rgba(255, 0, 122, 0.1);
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid var(--neon-pink);
-}
-
-/* Zone du milieu : Pool de sélection */
-.character-pool {
-    width: 100%;
-    max-width: 800px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-/* Zone du bas : Picks des équipes */
-.teams-picks {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-}
-
-.team { display: flex; gap: 10px; }
-
-/* Taille unique pour TOUS les slots (Pool, Preban, Picks) */
-.hero-card, .slot {
-    width: 120px;
-    height: 120px;
-    background: var(--card-bg);
-    border: 1px solid #444;
-    position: relative;
-    overflow: hidden;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.hero-card { cursor: pointer; transition: 0.3s; }
-.hero-card:hover { border-color: var(--neon-blue); transform: scale(1.05); }
-
-.slot { border: 1px dashed #555; background: #111; font-size: 0.8em; color: #555; }
-.slot.active-preban { border-color: var(--neon-pink); }
-.slot.active-pick { border-color: var(--neon-blue); }
-
-/* Images dans les slots */
-.hero-card img, .slot img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-}
-
-.hero-name {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.7);
-    font-size: 12px;
-    padding: 2px 0;
-}
+        <div class="teams-picks">
+            <div class="team" id="team-red">
+                <div class="slot">RED 1</div>
+                <div class="slot">RED 2</div>
+                <div class="slot">RED 3</div>
+                <div class="slot">RED 4</div>
+                <div class="slot">RED 5</div>
+            </div>
+            <div class="team" id="team-blue">
+                <div class="slot">BLUE 1</div>
+                <div class="slot">BLUE 2</div>
+                <div class="slot">BLUE 3</div>
+                <div class="slot">BLUE 4</div>
+                <div class="slot">BLUE 5</div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
