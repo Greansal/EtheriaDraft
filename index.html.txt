@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etheria: Restart - Draft Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>ETHERIA: <span class="highlight">RESTART</span> DRAFT</h1>
+        <div id="status-message">Phase de Ban : Équipe A</div>
+    </header>
+
+    <main class="draft-container">
+        <section class="team side-left">
+            <h2>ÉQUIPE A</h2>
+            <div class="bans-row" id="bans-a">
+                <div class="slot ban">Ban 1</div>
+                <div class="slot ban">Ban 2</div>
+            </div>
+            <div class="picks-column" id="picks-a">
+                <div class="slot pick">Pick 1</div>
+                <div class="slot pick">Pick 2</div>
+                <div class="slot pick">Pick 3</div>
+            </div>
+        </section>
+
+        <section class="character-pool">
+            <div class="grid" id="hero-grid">
+                <div class="hero-card" onclick="selectHero('Anis')">
+                    <img src="images/anis.png" alt="Anis">
+                    <p>Anis</p>
+                </div>
+                <div class="hero-card" onclick="selectHero('Dinah')">
+                    <img src="images/dinah.png" alt="Dinah">
+                    <p>Dinah</p>
+                </div>
+                </div>
+        </section>
+
+        <section class="team side-right">
+            <h2>ÉQUIPE B</h2>
+            <div class="bans-row" id="bans-b">
+                <div class="slot ban">Ban 1</div>
+                <div class="slot ban">Ban 2</div>
+            </div>
+            <div class="picks-column" id="picks-b">
+                <div class="slot pick">Pick 1</div>
+                <div class="slot pick">Pick 2</div>
+                <div class="slot pick">Pick 3</div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
