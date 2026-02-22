@@ -1,46 +1,51 @@
-let currentStep = 0; // 0 & 1: Bans A, 2 & 3: Bans B, 4+: Picks
+let currentStep = 0;
 const statusText = document.getElementById('status-message');
 
 const sequence = [
-    { team: 'A', type: 'ban', label: 'Ban 1 Équipe A' },
-    { team: 'A', type: 'ban', label: 'Ban 2 Équipe A' },
-    { team: 'B', type: 'ban', label: 'Ban 1 Équipe B' },
-    { team: 'B', type: 'ban', label: 'Ban 2 Équipe B' },
-    { team: 'A', type: 'pick', label: 'Pick 1 Équipe A' },
-    { team: 'B', type: 'pick', label: 'Pick 1 & 2 Équipe B' }, // Simplifié pour le test
-    { team: 'A', type: 'pick', label: 'Pick 2 & 3 Équipe A' }
+    { team: 'a', type: 'ban', label: 'Ban 1 Équipe A' },
+    { team: 'a', type: 'ban', label: 'Ban 2 Équipe A' },
+    { team: 'b', type: 'ban', label: 'Ban 1 Équipe B' },
+    { team: 'b', type: 'ban', label: 'Ban 2 Équipe B' },
+    { team: 'a', type: 'pick', label: 'Pick 1 Équipe A' },
+    { team: 'b', type: 'pick', label: 'Pick 1 Équipe B' }
 ];
 
 function selectHero(heroName) {
-    if (currentStep >= sequence.length) {
-        statusText.innerText = "Draft Terminé !";
-        return;
-    }
+    console.log("Tentative de sélection pour :", heroName);
+    if (currentStep >= sequence.length) return;
 
     const step = sequence[currentStep];
-    const side = step.team === 'A' ? 'a' : 'b';
-    const type = step.type;
-
-    // Trouver le premier slot vide pour ce type et cette équipe
-    const slots = document.querySelectorAll(`#${type}s-${side} .slot`);
-    let filled = false;
-
+    const containerId = `${step.type}s-${step.team}`;
+    const slots = document.querySelectorAll(`#${containerId} .slot`);
+    
     for (let slot of slots) {
-        if (slot.innerText.includes('Ban') || slot.innerText.includes('Pick')) {
-            slot.innerText = heroName;
+        if (!slot.querySelector('img')) {
+            slot.innerHTML = ''; 
+            const img = document.createElement('img');
+            
+            // On force le nom en minuscule pour correspondre au fichier image
+            const fileName = heroName.toLowerCase();
+            img.src = `images/${fileName}.png`;
+            
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            
+            slot.appendChild(img);
             slot.style.borderStyle = "solid";
-            slot.style.color = "white";
-            filled = true;
-            break;
+            
+            console.log("Héros placé dans :", containerId);
+            currentStep++;
+            updateStatus();
+            return; // On sort de la fonction dès qu'on a placé l'image
         }
     }
+}
 
-    if (filled) {
-        currentStep++;
-        if (currentStep < sequence.length) {
-            statusText.innerText = "Phase de " + sequence[currentStep].label;
-        } else {
-            statusText.innerText = "Draft Terminé !";
-        }
+function updateStatus() {
+    if (currentStep < sequence.length) {
+        statusText.innerText = "Phase de : " + sequence[currentStep].label;
+    } else {
+        statusText.innerText = "DRAFT TERMINÉ";
     }
 }
