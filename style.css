@@ -135,3 +135,6 @@ header {
 .team-container:last-child h3 {
     color: var(--neon-blue); /* Titre Bleu (Equipe B) */
 }
+.hero-name {
+    display: none !important;
+}
