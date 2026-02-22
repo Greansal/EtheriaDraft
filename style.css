@@ -109,3 +109,25 @@ header {
     object-fit: cover;
     object-position: top;
 }
+/* On prépare le slot pour qu'il puisse contenir une couche supérieure */
+.slot {
+    position: relative;
+}
+
+/* Filtre rouge pour les slots de PREBAN qui contiennent une image */
+.slot.active-preban img {
+    filter: grayscale(100%); /* Optionnel : met l'image en noir et blanc pour renforcer l'effet */
+}
+
+.slot.active-preban::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.4); /* Rouge (255,0,0) avec 40% d'opacité (0.4) */
+    pointer-events: none; /* Permet de ne pas gêner les clics */
+    z-index: 2; /* Place le filtre au-dessus de l'image */
+}
+
