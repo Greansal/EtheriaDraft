@@ -87,14 +87,14 @@ header {
 
 .slot img {
     width: 100%;
-    height: 100%;
     object-fit: cover; /* Coupe l'image pour qu'elle remplisse le cadre sans se déformer */
-    object-position: top; /* Centre l'image sur le haut (là où se trouve la tête) */
+    object-position: center 10%; /* Centre l'image sur le haut (là où se trouve la tête) */
     display: block;
 }
 
 .side-left { text-align: left; }
 .side-right { text-align: right; }
+
 
 
 
