@@ -1,51 +1,42 @@
 let currentStep = 0;
 const statusText = document.getElementById('status-message');
 
-const sequence = [
-    { team: 'a', type: 'ban', label: 'Ban 1 Équipe A' },
-    { team: 'a', type: 'ban', label: 'Ban 2 Équipe A' },
-    { team: 'b', type: 'ban', label: 'Ban 1 Équipe B' },
-    { team: 'b', type: 'ban', label: 'Ban 2 Équipe B' },
-    { team: 'a', type: 'pick', label: 'Pick 1 Équipe A' },
-    { team: 'b', type: 'pick', label: 'Pick 1 Équipe B' }
+// Ordre : 2 Prebans, puis alternance Rouge/Bleu pour 5 persos chacun
+const steps = [
+    { id: 'preban-1', label: 'PREBAN 2' },
+    { id: 'preban-2', label: 'PICK ROUGE 1' },
+    { team: 'red', slotIndex: 0, label: 'PICK BLEU 1' },
+    { team: 'blue', slotIndex: 0, label: 'PICK ROUGE 2' },
+    { team: 'red', slotIndex: 1, label: 'PICK BLEU 2' },
+    { team: 'blue', slotIndex: 1, label: 'PICK ROUGE 3' },
+    { team: 'red', slotIndex: 2, label: 'PICK BLEU 3' },
+    { team: 'blue', slotIndex: 2, label: 'PICK ROUGE 4' },
+    { team: 'red', slotIndex: 3, label: 'PICK BLEU 4' },
+    { team: 'blue', slotIndex: 3, label: 'PICK ROUGE 5' },
+    { team: 'red', slotIndex: 4, label: 'PICK BLEU 5' },
+    { team: 'blue', slotIndex: 4, label: 'DRAFT TERMINÉ' }
 ];
 
-function selectHero(heroName) {
-    console.log("Tentative de sélection pour :", heroName);
-    if (currentStep >= sequence.length) return;
+function selectHero(name) {
+    if (currentStep >= steps.length) return;
 
-    const step = sequence[currentStep];
-    const containerId = `${step.type}s-${step.team}`;
-    const slots = document.querySelectorAll(`#${containerId} .slot`);
-    
-    for (let slot of slots) {
-        if (!slot.querySelector('img')) {
-            slot.innerHTML = ''; 
-            const img = document.createElement('img');
-            
-            // On force le nom en minuscule pour correspondre au fichier image
-            const fileName = heroName.toLowerCase();
-            img.src = `images/${fileName}.png`;
-            
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.objectFit = 'cover';
-            
-            slot.appendChild(img);
-            slot.style.borderStyle = "solid";
-            
-            console.log("Héros placé dans :", containerId);
-            currentStep++;
-            updateStatus();
-            return; // On sort de la fonction dès qu'on a placé l'image
-        }
-    }
-}
+    let targetSlot;
+    const currentInfo = steps[currentStep];
 
-function updateStatus() {
-    if (currentStep < sequence.length) {
-        statusText.innerText = "Phase de : " + sequence[currentStep].label;
+    if (currentStep < 2) {
+        // Phase Preban
+        targetSlot = document.getElementById(currentInfo.id);
     } else {
-        statusText.innerText = "DRAFT TERMINÉ";
+        // Phase Pick Alterné
+        const teamDiv = currentInfo.team === 'red' ? 'team-red' : 'team-blue';
+        targetSlot = document.getElementById(teamDiv).children[currentInfo.slotIndex];
+    }
+
+    if (targetSlot) {
+        targetSlot.innerHTML = `<img src="images/${name}.png">`;
+        targetSlot.style.borderStyle = "solid";
+        
+        statusText.innerText = "PHASE : " + currentInfo.label;
+        currentStep++;
     }
 }
