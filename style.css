@@ -18,91 +18,94 @@ body {
 
 header {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     border-bottom: 2px solid var(--neon-blue);
     width: 100%;
-    margin-bottom: 20px;
 }
 
 .highlight { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
 
+/* Conteneur principal */
 .draft-container {
-    display: grid;
-    grid-template-columns: 250px 1fr 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
+    padding: 20px;
     width: 95%;
-    max-width: 1400px;
 }
 
-/* Grille des personnages */
+/* Zone du haut : Prebans */
+.preban-zone {
+    display: flex;
+    gap: 50px;
+    background: rgba(255, 0, 122, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--neon-pink);
+}
+
+/* Zone du milieu : Pool de sélection */
 .character-pool {
+    width: 100%;
+    max-width: 800px;
     background: rgba(255, 255, 255, 0.05);
     padding: 20px;
     border-radius: 10px;
-    border: 1px solid #333;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
-.hero-card {
+/* Zone du bas : Picks des équipes */
+.teams-picks {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.team { display: flex; gap: 10px; }
+
+/* Taille unique pour TOUS les slots (Pool, Preban, Picks) */
+.hero-card, .slot {
+    width: 120px;
+    height: 120px;
     background: var(--card-bg);
     border: 1px solid #444;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 5px;
+    position: relative;
     overflow: hidden;
-}
-
-.hero-card:hover {
-    border-color: var(--neon-blue);
-    transform: scale(1.05);
-}
-
-.hero-card img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-}
-
-/* Slots de Ban et Pick */
-.slot {
-    background: #222;
-    border: 1px dashed #555;
-    margin: 10px auto; /* Centre le slot horizontalement */
-    width: 100px;      /* Même largeur que tes hero-cards */
-    height: 100px;     /* Même hauteur pour faire un carré */
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7em;
-    text-transform: uppercase;
-    overflow: hidden
+    text-align: center;
 }
 
-.slot.ban { 
-    border-color: var(--neon-pink); 
-    color: var(--neon-pink); 
-    height: 100px; /* On met la même hauteur que le pick pour garder le portrait */
-}
-.slot.pick { border-color: var(--neon-blue); }
+.hero-card { cursor: pointer; transition: 0.3s; }
+.hero-card:hover { border-color: var(--neon-blue); transform: scale(1.05); }
 
-.slot img {
+.slot { border: 1px dashed #555; background: #111; font-size: 0.8em; color: #555; }
+.slot.active-preban { border-color: var(--neon-pink); }
+.slot.active-pick { border-color: var(--neon-blue); }
+
+/* Images dans les slots */
+.hero-card img, .slot img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+    object-position: top;
 }
 
-.side-left { text-align: left; }
-.side-right { text-align: right; }
-
-
-
-
-
-
+.hero-name {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    font-size: 12px;
+    padding: 2px 0;
+}
