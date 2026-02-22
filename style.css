@@ -71,7 +71,6 @@ header {
     max-width: 1300px;
     margin-top: 30px;
 }
-}
 
 .team-container {
     display: flex;
@@ -152,6 +151,7 @@ header {
     pointer-events: none; /* Permet de ne pas gêner les clics */
     z-index: 2; /* Place le filtre au-dessus de l'image */
 }
+
 
 
 
