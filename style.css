@@ -26,7 +26,6 @@ header {
 
 .highlight { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
 
-/* Organisation verticale du site */
 .draft-container {
     display: flex;
     flex-direction: column;
@@ -35,7 +34,6 @@ header {
     width: 95%;
 }
 
-/* 1. Zone du haut : Prebans */
 .preban-zone {
     display: flex;
     gap: 20px;
@@ -46,7 +44,6 @@ header {
     background: rgba(255, 0, 122, 0.05);
 }
 
-/* 2. Zone du milieu : Sélection */
 .character-pool {
     width: 100%;
     max-width: 900px;
@@ -62,11 +59,10 @@ header {
     gap: 15px;
 }
 
-/* Modifie cette partie pour écarter les deux blocs d'équipes */
 .teams-area {
     display: flex;
-    justify-content: center; /* Centre l'ensemble au milieu de l'écran */
-    gap: 100px;             /* Crée un espace de 100px entre l'équipe rouge et bleue */
+    justify-content: center; 
+    gap: 100px; /* L'espace de 100px que tu voulais */
     width: 100%;
     max-width: 1300px;
     margin-top: 30px;
@@ -84,7 +80,6 @@ header {
     gap: 10px;
 }
 
-/* TAILLE UNIQUE (120x120) pour tout */
 .hero-card, .slot {
     width: 120px;
     height: 120px;
@@ -110,6 +105,7 @@ header {
     object-fit: cover;
     object-position: top;
 }
+
 /* Filtre rouge pour les slots de PREBAN */
 .slot.active-preban {
     position: relative;
@@ -122,36 +118,20 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 0, 0, 0.4); /* Rouge transparent */
+    background-color: rgba(255, 0, 0, 0.4); 
     pointer-events: none;
     z-index: 2;
 }
 
 .slot.active-preban img {
-    filter: grayscale(100%); /* Met l'image en noir et blanc sous le rouge */
-}
-/* On prépare le slot pour qu'il puisse contenir une couche supérieure */
-.slot {
-    position: relative;
+    filter: grayscale(100%);
 }
 
-/* Filtre rouge pour les slots de PREBAN qui contiennent une image */
-.slot.active-preban img {
-    filter: grayscale(100%); /* Optionnel : met l'image en noir et blanc pour renforcer l'effet */
+/* Couleurs des titres des équipes */
+.team-container:first-child h3 {
+    color: var(--neon-pink); /* Titre Rouge (Equipe A) */
 }
 
-.slot.active-preban::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 0, 0, 0.4); /* Rouge (255,0,0) avec 40% d'opacité (0.4) */
-    pointer-events: none; /* Permet de ne pas gêner les clics */
-    z-index: 2; /* Place le filtre au-dessus de l'image */
+.team-container:last-child h3 {
+    color: var(--neon-blue); /* Titre Bleu (Equipe B) */
 }
-
-
-
-
