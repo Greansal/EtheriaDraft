@@ -29,9 +29,9 @@
 
         <section class="character-pool">
             <div class="grid" id="hero-grid">
-                <div class="hero-card" onclick="selectHero('Anis')">
-                    <img src="images/anis.png" alt="Anis">
-                    <p>Anis</p>
+                <div class="hero-card" onclick="selectHero('doki')">
+                    <img src="images/doki.png" alt="doki">
+                    <p>doki</p>
                 </div>
                 <div class="hero-card" onclick="selectHero('Dinah')">
                     <img src="images/dinah.png" alt="Dinah">
