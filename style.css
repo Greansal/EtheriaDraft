@@ -1,4 +1,4 @@
-/* Style Global : On réduit les marges pour gagner de la place en hauteur */
+/* Style Global */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -13,7 +13,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Header : On compacte le titre */
 header { text-align: center; margin-bottom: 5px; }
 header h1 { font-size: 1.8rem; }
 .highlight { color: #00f2ff; }
@@ -25,7 +24,6 @@ header h1 { font-size: 1.8rem; }
     font-size: 0.9rem;
 }
 
-/* Pré-bans : On les rapproche du titre */
 .preban-container {
     display: flex;
     justify-content: center;
@@ -33,25 +31,32 @@ header h1 { font-size: 1.8rem; }
     margin: 10px 0;
 }
 
-/* LA GRILLE : C'est ici qu'on gagne le plus de place */
 .grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 8px; /* Un peu plus d'espace entre les grandes cartes */
     justify-content: center;
-    max-width: 800px; 
-    margin-bottom: 15px;
+    max-width: 900px; /* Élargi pour compenser la taille des images */
+    margin-bottom: 20px;
 }
 
-/* Taille des cartes : On passe à une taille "compacte" */
+/* --- TAILLE AGRANDIE (70px) ET EFFETS --- */
 .hero-card, .slot {
-    width: 55px;  
-    height: 75px; 
+    width: 70px;      /* Passage de 55px à 70px */
+    height: 95px;     /* Hauteur proportionnelle */
     background-color: #1a1f26;
     border: 1px solid #333;
-    border-radius: 4px;
+    border-radius: 6px; /* Bordures un peu plus arrondies */
     overflow: hidden;
     cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s; /* Transition fluide */
+}
+
+/* Effet de zoom quand tu passes la souris sur un héros */
+.hero-card:hover {
+    transform: scale(1.1); 
+    z-index: 10;
+    border-color: #00f2ff;
 }
 
 .hero-card img, .slot img { 
@@ -61,7 +66,7 @@ header h1 { font-size: 1.8rem; }
     display: block; 
 }
 
-/* Les Équipes : Alignées pour ne pas manger d'espace vertical */
+/* Les Équipes */
 .teams-area { 
     display: flex; 
     justify-content: center; 
@@ -74,20 +79,17 @@ header h1 { font-size: 1.8rem; }
 .label-red { color: #ff007a; font-size: 0.8rem; }
 .label-blue { color: #00f2ff; font-size: 0.8rem; }
 
-/* --- ÉTATS ET ANIMATIONS MODIFIÉS --- */
+/* --- ÉTATS ET ANIMATIONS --- */
 
-/* Animation de clignotement pour les pré-bans */
 @keyframes pulse-preban {
     0% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
     50% { box-shadow: 0 0 20px #ff004c; border-color: #ff4d88; }
     100% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
 }
 
-/* On applique l'animation à la classe active-preban */
 .active-preban {
     border: 2px solid #ff004c !important;
-    animation: pulse-preban 1.5s infinite ease-in-out;
-    cursor: pointer;
+    animation: pulse-preban 1s infinite ease-in-out;
 }
 
 .slot.gold { border: 2px solid #ffd700; }
@@ -98,13 +100,14 @@ header h1 { font-size: 1.8rem; }
 .glow-red { animation: glow-red 1.5s infinite; }
 .glow-blue { animation: glow-blue 1.5s infinite; }
 
+/* --- BOUTON RESET --- */
 #reset-btn {
-    margin-top: 50px; /* Plus d'espace sous les équipes */
+    margin-top: 50px; 
     margin-bottom: 20px;
     padding: 12px 30px;
     background: transparent;
-    border: 2px solid #00f2ff; /* Contour bleu */
-    color: #00f2ff; /* Texte bleu */
+    border: 2px solid #00f2ff;
+    color: #00f2ff;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
@@ -118,17 +121,3 @@ header h1 { font-size: 1.8rem; }
     box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
     transform: scale(1.05);
 }
-
-/* --- ANIMATION PRE-BAN --- */
-@keyframes pulse-preban {
-    0% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
-    50% { box-shadow: 0 0 20px #ff004c; border-color: #ff4d88; }
-    100% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
-}
-
-/* Elle ne s'applique QUE si la classe est présente */
-.active-preban {
-    border: 2px solid #ff004c !important;
-    animation: pulse-preban 1s infinite ease-in-out;
-}
-
