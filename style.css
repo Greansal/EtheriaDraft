@@ -76,42 +76,38 @@ header h1 { font-size: 1.8rem; }
 
 /* --- ÉTATS ET ANIMATIONS MODIFIÉS --- */
 
-/* Animation de pulsation plus agressive */
+/* Animation de clignotement pour les pré-bans */
 @keyframes pulse-preban {
-    0% { 
-        box-shadow: 0 0 5px #ff004c; 
-        border-color: #ff004c;
-        background-color: rgba(255, 0, 76, 0.1); 
-    }
-    50% { 
-        box-shadow: 0 0 25px #ff004c; 
-        border-color: #ff4d88;
-        background-color: rgba(255, 0, 76, 0.3); /* Le slot se remplit de rouge */
-    }
-    100% { 
-        box-shadow: 0 0 5px #ff004c; 
-        border-color: #ff004c;
-        background-color: rgba(255, 0, 76, 0.1);
-    }
+    0% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
+    50% { box-shadow: 0 0 20px #ff004c; border-color: #ff4d88; }
+    100% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
 }
 
-/* Application sur les slots actifs */
+/* On applique l'animation à la classe active-preban */
 .active-preban {
-    border: 3px solid #ff004c !important; /* Bordure un peu plus épaisse */
-    animation: pulse-preban 1s infinite ease-in-out; /* Plus rapide (1s au lieu de 1.5s) */
+    border: 2px solid #ff004c !important;
+    animation: pulse-preban 1.5s infinite ease-in-out;
     cursor: pointer;
-    position: relative;
 }
 
-/* Petit texte "!" au-dessus pour attirer l'oeil (optionnel) */
-.active-preban::before {
-    content: "BAN";
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ff004c;
-    font-size: 0.7rem;
+.slot.gold { border: 2px solid #ffd700; }
+.slot.banned img { filter: grayscale(100%) brightness(30%); }
+
+@keyframes glow-red { 50% { box-shadow: 0 0 10px #ff007a; border-color: #ff007a; } }
+@keyframes glow-blue { 50% { box-shadow: 0 0 10px #00f2ff; border-color: #00f2ff; } }
+.glow-red { animation: glow-red 1.5s infinite; }
+.glow-blue { animation: glow-blue 1.5s infinite; }
+
+/* --- FIN DES ANIMATIONS --- */
+
+/* Bouton Reset : Plus discret */
+#reset-btn {
+    margin: 15px auto;
+    padding: 8px 20px;
+    background: transparent;
+    border: 2px solid #00f2ff;
+    color: #00f2ff;
+    cursor: pointer;
     font-weight: bold;
-    letter-spacing: 1px;
+    font-size: 0.8rem;
 }
