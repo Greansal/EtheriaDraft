@@ -1,4 +1,35 @@
-/* Style Global */
+/* --- CONFIGURATION DES VARIABLES --- */
+:root {
+    /* Taille par défaut (Grand écran) */
+    --card-w: 75px;
+    --card-h: 100px;
+    --gap: 8px;
+}
+
+/* --- AJUSTEMENT AUTOMATIQUE (Tablettes et petits PC) --- */
+@media (max-width: 1024px) {
+    :root {
+        --card-w: 65px;
+        --card-h: 88px;
+        --gap: 6px;
+    }
+}
+
+/* --- AJUSTEMENT AUTOMATIQUE (Mobiles) --- */
+@media (max-width: 600px) {
+    :root {
+        --card-w: 50px;
+        --card-h: 68px;
+        --gap: 4px;
+    }
+    header h1 { font-size: 1.4rem; }
+    .teams-area { 
+        flex-direction: column; /* Équipes l'une sous l'autre sur téléphone */
+        gap: 20px; 
+    }
+}
+
+/* --- STYLE GÉNÉRAL --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -8,13 +39,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-header { text-align: center; margin-bottom: 5px; }
-header h1 { font-size: 1.8rem; }
+header { text-align: center; margin-bottom: 10px; }
+header h1 { font-size: 1.8rem; transition: 0.3s; }
 .highlight { color: #00f2ff; }
 
 #status-message {
@@ -22,41 +53,43 @@ header h1 { font-size: 1.8rem; }
     font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9rem;
+    color: #ffd700;
 }
 
 .preban-container {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px; /* Un peu plus d'espace entre les grandes cartes */
+    gap: var(--gap);
     justify-content: center;
-    max-width: 900px; /* Élargi pour compenser la taille des images */
-    margin-bottom: 20px;
+    max-width: 1000px;
+    margin-bottom: 25px;
+    transition: 0.3s;
 }
 
-/* --- TAILLE AGRANDIE (70px) ET EFFETS --- */
+/* --- UTILISATION DES VARIABLES POUR LES CARTES --- */
 .hero-card, .slot {
-    width: 70px;      /* Passage de 55px à 70px */
-    height: 95px;     /* Hauteur proportionnelle */
+    width: var(--card-w);
+    height: var(--card-h);
     background-color: #1a1f26;
     border: 1px solid #333;
-    border-radius: 6px; /* Bordures un peu plus arrondies */
+    border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s; /* Transition fluide */
+    transition: all 0.2s ease-in-out;
 }
 
-/* Effet de zoom quand tu passes la souris sur un héros */
 .hero-card:hover {
-    transform: scale(1.1); 
+    transform: scale(1.15);
     z-index: 10;
     border-color: #00f2ff;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
 }
 
 .hero-card img, .slot img { 
@@ -66,25 +99,24 @@ header h1 { font-size: 1.8rem; }
     display: block; 
 }
 
-/* Les Équipes */
+/* --- ÉQUIPES --- */
 .teams-area { 
     display: flex; 
     justify-content: center; 
     gap: 40px; 
-    width: 100%; 
+    width: 100%;
+    transition: 0.3s;
 }
 .team-container { text-align: center; }
-.team-row { display: flex; gap: 5px; margin-top: 5px; }
+.team-row { display: flex; gap: var(--gap); margin-top: 5px; }
 
-.label-red { color: #ff007a; font-size: 0.8rem; }
-.label-blue { color: #00f2ff; font-size: 0.8rem; }
+.label-red { color: #ff007a; font-size: 0.8rem; margin-bottom: 5px; }
+.label-blue { color: #00f2ff; font-size: 0.8rem; margin-bottom: 5px; }
 
-/* --- ÉTATS ET ANIMATIONS --- */
-
+/* --- ANIMATIONS & ÉTATS --- */
 @keyframes pulse-preban {
-    0% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
+    0%, 100% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
     50% { box-shadow: 0 0 20px #ff004c; border-color: #ff4d88; }
-    100% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
 }
 
 .active-preban {
@@ -92,19 +124,18 @@ header h1 { font-size: 1.8rem; }
     animation: pulse-preban 1s infinite ease-in-out;
 }
 
-.slot.gold { border: 2px solid #ffd700; }
+.slot.gold { border: 2px solid #ffd700; box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
 .slot.banned img { filter: grayscale(100%) brightness(30%); }
 
-@keyframes glow-red { 50% { box-shadow: 0 0 10px #ff007a; border-color: #ff007a; } }
-@keyframes glow-blue { 50% { box-shadow: 0 0 10px #00f2ff; border-color: #00f2ff; } }
+@keyframes glow-red { 50% { box-shadow: 0 0 15px #ff007a; border-color: #ff007a; } }
+@keyframes glow-blue { 50% { box-shadow: 0 0 15px #00f2ff; border-color: #00f2ff; } }
 .glow-red { animation: glow-red 1.5s infinite; }
 .glow-blue { animation: glow-blue 1.5s infinite; }
 
 /* --- BOUTON RESET --- */
 #reset-btn {
-    margin-top: 50px; 
-    margin-bottom: 20px;
-    padding: 12px 30px;
+    margin: 40px auto 20px;
+    padding: 12px 35px;
     background: transparent;
     border: 2px solid #00f2ff;
     color: #00f2ff;
@@ -112,12 +143,11 @@ header h1 { font-size: 1.8rem; }
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 4px;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 5px rgba(0, 242, 255, 0.2);
+    transition: 0.3s;
 }
 
 #reset-btn:hover {
-    background: rgba(0, 242, 255, 0.1);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
-    transform: scale(1.05);
+    background: #00f2ff;
+    color: #0b0e14;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
 }
