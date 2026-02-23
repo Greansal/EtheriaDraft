@@ -1,27 +1,28 @@
-/* Empêche les images de casser la mise en page comme sur ta photo */
-.hero-crop {
+/* Empêche le bug de l'image géante */
+.mask {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: hidden; /* Coupe tout ce qui dépasse du carré */
     position: relative;
     display: flex;
     justify-content: center;
 }
 
-.hero-crop img {
+.mask img {
     width: 100%;
-    height: 140%; /* On l'agrandit pour que le bas sorte du cadre */
+    height: 140%; /* L'image est plus grande que le cadre pour cacher le bas */
     object-fit: cover;
-    object-position: top; /* On reste fixé sur le visage */
+    object-position: top; /* On garde la tête du perso */
     position: absolute;
     top: 0;
 }
 
-/* Grille de sélection des persos */
+/* Grille principale */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
     gap: 8px;
+    max-width: 600px;
 }
 
 .hero-card {
@@ -33,32 +34,30 @@
     background: #1a1f26;
 }
 
-/* Les slots des équipes */
+/* Slots des équipes */
 .slot {
     width: 60px;
     height: 60px;
     background: #14181f;
+    border: 1px dashed #444;
     border-radius: 4px;
     position: relative;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px dashed #444;
 }
 
-/* Styles spécifiques */
-.slot.banned .hero-crop { filter: grayscale(100%) brightness(30%); }
+[id$="-3"] { border: 2px solid #ffd700 !important; }
+
+.slot.banned .mask { filter: grayscale(100%) brightness(30%); }
 .slot.banned::after {
     content: "✕";
     position: absolute;
     color: #ff004c;
     font-size: 40px;
     font-weight: bold;
-    z-index: 5;
+    z-index: 10;
 }
 
-.slot-num { color: #333; font-size: 12px; position: absolute; }
-
-/* Slot 3 toujours doré */
-[id$="-3"] { border: 2px solid #ffd700 !important; }
+.slot-num { color: #333; font-size: 11px; z-index: 1; }
