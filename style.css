@@ -55,13 +55,12 @@ header { text-align: center; margin-bottom: 20px; }
     justify-content: center;
     gap: 60px;
     width: 100%;
-    margin-top: 30px;
 }
 
-.team-container {
+.team-row {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row; 
+    gap: 8px;
 }
 
 .team-row {
@@ -88,3 +87,4 @@ header { text-align: center; margin-bottom: 20px; }
     cursor: pointer;
     font-weight: bold;
 }
+
