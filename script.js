@@ -30,26 +30,19 @@ function selectHero(heroName) {
     const imgPath = `images/${heroName}.png`;
     const heroHTML = `<img src="${imgPath}">`;
 
-    // Gestion des Pré-bans
+    // --- PARTIE À MODIFIER POUR LE PRÉ-BAN ---
     if (activePrebanSlot) {
-        document.getElementById(activePrebanSlot).innerHTML = heroHTML;
+        const slot = document.getElementById(activePrebanSlot);
+        slot.innerHTML = heroHTML;
         
-        // On retire l'animation du slot qui vient d'être rempli
-        document.getElementById(activePrebanSlot).classList.remove('active-preban');
+        // C'EST ICI : On retire la classe d'animation dès que le héros est posé
+        slot.classList.remove('active-preban');
         
         activePrebanSlot = null;
-
-        // Si les deux pré-bans sont faits, on peut aussi forcer l'arrêt total
-        const p1 = document.getElementById('preban-1');
-        const p2 = document.getElementById('preban-2');
-        if (p1.innerHTML !== "" && p2.innerHTML !== "") {
-            p1.classList.remove('active-preban');
-            p2.classList.remove('active-preban');
-        }
         return;
     }
+    // -----------------------------------------
 
-    // Gestion de la Draft normale
     if (currentStep < draftOrder.length) {
         const targetId = draftOrder[currentStep];
         const slot = document.getElementById(targetId);
@@ -93,4 +86,5 @@ function updateStatus() {
 function resetDraft() {
     location.reload();
 }
+
 
