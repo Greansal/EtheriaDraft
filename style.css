@@ -1,99 +1,32 @@
-/* RESET DE BASE */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    background-color: #0b0e14;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-/* LE MASQUE (Très important pour cacher les mots) */
-.hero-mask {
-    width: 65px;
-    height: 65px;
-    overflow: hidden; /* Coupe tout ce qui dépasse */
+/* Verrouille la taille des cases pour éviter l'empilement géant */
+.slot, .hero-card, .active-preban {
+    width: 65px !important;
+    height: 65px !important;
+    overflow: hidden !important; /* Interdit tout débordement */
     position: relative;
-    border-radius: 4px;
-    background: #1a1f26;
-}
-
-.hero-mask img {
-    width: 100%;
-    height: 140%; /* On agrandit pour que le bas sorte du cadre */
-    object-fit: cover;
-    object-position: top; /* On garde la tête */
-    display: block;
-}
-
-/* GRILLE DES PERSONNAGES */
-.character-pool {
-    display: grid;
-    grid-template-columns: repeat(10, 65px); /* 10 colonnes fixes */
-    gap: 8px;
-    background: rgba(26, 31, 38, 0.5);
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
-}
-
-.hero-card {
-    cursor: pointer;
-    transition: transform 0.1s;
-}
-
-.hero-card:hover { transform: scale(1.05); }
-
-/* SLOTS DES EQUIPES */
-.teams-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 900px;
-    margin-top: 30px;
-}
-
-.team { display: flex; flex-direction: column; gap: 10px; }
-
-.slots-row { display: flex; gap: 5px; }
-
-.slot {
-    width: 60px;
-    height: 60px;
-    background: #14181f;
-    border: 1px dashed #444;
+    background-color: #1a1f26;
     border-radius: 4px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
+    align-items: center;
 }
 
-/* COULEURS SPECIALES */
-[id$="-3"] { border: 2px solid #ffd700 !important; } /* Slot 3 doré */
-
-.slot.active { border-style: solid; border-color: white; }
-
-.slot.banned::after {
-    content: "✕";
+/* Style de l'image à l'intérieur */
+.hero-img-fix {
+    width: 100%;
+    height: 150%; /* On dépasse volontairement vers le bas */
+    object-fit: cover;
+    object-position: top; /* On cale sur le visage */
     position: absolute;
-    color: #ff004c;
-    font-size: 40px;
-    font-weight: bold;
-    z-index: 10;
-    text-shadow: 0 0 10px black;
+    top: 0;
+    pointer-events: none; /* Évite les bugs de clic */
 }
 
-.slot.banned .hero-mask { filter: grayscale(100%) brightness(30%); }
-
-/* STATUS MESSAGE */
-#status-message {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+/* Grille des personnages pour qu'ils ne soient pas les uns sous les autres */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 800px;
 }
