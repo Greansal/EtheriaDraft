@@ -170,20 +170,15 @@ header {
     h3 { font-size: 1rem; }
 }
 #reset-btn {
-    margin: 40px 0;
-    padding: 15px 30px;
-    background-color: var(--card-bg);
-    color: var(--neon-blue);
-    border: 2px solid var(--neon-blue);
-    border-radius: 8px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #1a1f26;
+    color: #00f2ff;
+    border: 2px solid #00f2ff;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+    font-family: inherit;
+    z-index: 100; /* Pour être sûr qu'il soit au-dessus de tout */
 }
 
-#reset-btn:hover {
-    background-color: var(--neon-blue);
-    color: black;
-    box-shadow: 0 0 15px var(--neon-blue);
-}
 
