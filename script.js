@@ -1,11 +1,8 @@
-// Configuration de la draft
 let currentStep = 0;
 let isBanPhase = false;
 let activePrebanSlot = null;
-let startingTeam = ""; // Sera "red" ou "blue"
 let draftOrder = [];
 
-// Initialisation au chargement
 window.onload = function() {
     setupNewDraft();
 
@@ -18,12 +15,11 @@ function setupNewDraft() {
     currentStep = 0;
     isBanPhase = false;
 
-    // 1. Aléatoire pour savoir qui commence
-    startingTeam = Math.random() < 0.5 ? "red" : "blue";
+    // Aléatoire : qui commence ?
+    const startingTeam = Math.random() < 0.5 ? "red" : "blue";
     const secondTeam = (startingTeam === "red") ? "blue" : "red";
 
-    // 2. Définition de l'ordre alterné (1 perso, puis 2, puis 2, puis 2, puis 2, puis 1)
-    // Cet ordre assure que chaque équipe finit avec 5 personnages
+    // Ordre de Draft : 1 - 2 - 2 - 2 - 2 - 1
     draftOrder = [
         `${startingTeam}-1`, 
         `${secondTeam}-1`, `${secondTeam}-2`,
@@ -34,6 +30,7 @@ function setupNewDraft() {
     ];
 
     updateStatus();
+    highlightNextSlot();
 }
 
 function selectHero(heroName) {
@@ -42,39 +39,52 @@ function selectHero(heroName) {
     const imgPath = `images/${heroName}.png`;
     const heroHTML = `<img src="${imgPath}">`;
 
-    // Gestion du Pre-ban (hors tour de draft)
     if (activePrebanSlot) {
         document.getElementById(activePrebanSlot).innerHTML = heroHTML;
         activePrebanSlot = null;
         return;
     }
 
-    // Gestion de la Draft
     if (currentStep < draftOrder.length) {
         const targetId = draftOrder[currentStep];
         const slot = document.getElementById(targetId);
         
         slot.innerHTML = heroHTML;
+        slot.classList.remove('glow-red', 'glow-blue'); // Retire la lueur car rempli
 
-        // Setup du clic de ban final (sauf sur les slots dorés/index 3 si tu veux les protéger)
+        // Setup clic pour ban final
         slot.onclick = function() {
             if (isBanPhase) slot.classList.toggle('banned');
         };
 
         currentStep++;
         updateStatus();
+        highlightNextSlot();
+    }
+}
+
+function highlightNextSlot() {
+    // On nettoie tout
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('glow-red', 'glow-blue'));
+
+    // On illumine le prochain
+    if (currentStep < draftOrder.length) {
+        const nextId = draftOrder[currentStep];
+        const nextSlot = document.getElementById(nextId);
+        if (nextSlot) {
+            const isRed = nextId.includes('red');
+            nextSlot.classList.add(isRed ? 'glow-red' : 'glow-blue');
+        }
     }
 }
 
 function updateStatus() {
     const msg = document.getElementById('status-message');
-    
     if (currentStep < draftOrder.length) {
         const nextId = draftOrder[currentStep];
         const isRed = nextId.includes('red');
         const color = isRed ? '#ff007a' : '#00f2ff';
         const teamName = isRed ? 'ROUGE' : 'BLEUE';
-        
         msg.innerHTML = `TOUR : <span style="color:${color}">ÉQUIPE ${teamName}</span>`;
     } else {
         isBanPhase = true;
@@ -83,6 +93,5 @@ function updateStatus() {
 }
 
 function resetDraft() {
-    // On recharge simplement la page pour tout remettre à zéro et relancer l'aléatoire
     location.reload();
 }
