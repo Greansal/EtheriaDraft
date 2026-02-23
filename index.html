@@ -1,98 +1,50 @@
-/* RESET & BASE */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-    background-color: #0b0e14;
-    color: white;
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etheria Draft</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ETHERIA <span class="highlight">DRAFT</span></h1>
+        <div id="status-message">PHASE : PRE-BAN</div>
+    </header>
 
-header { text-align: center; margin-bottom: 20px; }
-.highlight { color: #00f2ff; }
-
-/* GRILLE DES PERSONNAGES */
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    max-width: 900px; /* Ajusté pour que tes persos tiennent sur plusieurs lignes */
-    margin: 20px auto;
-}
-
-/* TAILLE RÉELLE & VERROUILLAGE */
-.slot, .hero-card {
-    width: 80px;  /* TAILLE UNIQUE POUR TOUT LE MONDE */
-    height: 110px; /* Ajuste cette hauteur selon le ratio de tes images */
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    background-color: #1a1f26;
-    border: 1px solid #333;
-    display: flex;
-}
-
-/* On cache les balises img et le texte hero-name du HTML original */
-.hero-card img, .hero-name {
-    display: none;
-}
-
-/* SYSTÈME DE VUE ZOOMÉE (Injecté par JS) */
-.hero-view {
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Remplit toute la case sans déformer */
-    background-position: center top;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-/* ZONES DE DRAFT */
-.preban-zone { display: flex; gap: 10px; margin-bottom: 20px; }
-.active-preban { border: 2px solid #ff004c; }
-
-<div class="teams-area">
-    <div class="team-container">
-        <h3 id="label-red">ÉQUIPE ROUGE</h3>
-        <div class="team-row"> <div id="red-1" class="slot">1</div>
-            <div id="red-2" class="slot">2</div>
-            <div id="red-3" class="slot">3</div>
-            <div id="red-4" class="slot">4</div>
-            <div id="red-5" class="slot">5</div>
+    <main class="draft-container">
+        <div class="preban-zone">
+            <div id="preban-1" class="slot active-preban">1</div>
+            <div id="preban-2" class="slot active-preban">2</div>
         </div>
-    </div>
-    <div class="team-container">
-        <h3 id="label-blue">ÉQUIPE BLEUE</h3>
-        <div class="team-row">
-            <div id="blue-1" class="slot">1</div>
-            <div id="blue-2" class="slot">2</div>
-            <div id="blue-3" class="slot">3</div>
-            <div id="blue-4" class="slot">4</div>
-            <div id="blue-5" class="slot">5</div>
-        </div>
-    </div>
-</div>
-.team-row { display: flex; gap: 8px; } /* ALIGNEMENT HORIZONTAL DES PERSOS */
 
-#label-red { color: #ff007a; margin-bottom: 10px; }
-#label-blue { color: #00f2ff; margin-bottom: 10px; }
-
-/* ÉTATS SPÉCIAUX */
-[id$="-3"] { border: 2px solid #ffd700; } /* Slot 3 doré */
-.slot.banned .hero-view { filter: grayscale(100%) brightness(30%); }
-
-#reset-btn {
-    margin-top: 30px;
-    padding: 10px 20px;
-    background: transparent;
-    border: 2px solid #00f2ff;
-    color: #00f2ff;
-    cursor: pointer;
-}
-
-
+        <section class="character-pool">
+            <div class="grid" id="hero-grid">
+                <div class="hero-card" onclick="selectHero('doki')"><img src="images/doki.png"><div class="hero-name">Doki</div></div>
+                <div class="hero-card" onclick="selectHero('aya')"><img src="images/aya.png"><div class="hero-name">aya</div></div>
+                <div class="hero-card" onclick="selectHero('beyontin')"><img src="images/beyontin.png"><div class="hero-name">beyontin</div></div>
+                <div class="hero-card" onclick="selectHero('borgne')"><img src="images/borgne.png"><div class="hero-name">borgne</div></div>
+                <div class="hero-card" onclick="selectHero('celinc')"><img src="images/celinc.png"><div class="hero-name">celinc</div></div>
+                <div class="hero-card" onclick="selectHero('darksania')"><img src="images/darksania.png"><div class="hero-name">darksania</div></div>
+                <div class="hero-card" onclick="selectHero('diting')"><img src="images/diting.png"><div class="hero-name">diting</div></div>
+                <div class="hero-card" onclick="selectHero('fiamelia')"><img src="images/fiamelia.png"><div class="hero-name">fiamelia</div></div>
+                <div class="hero-card" onclick="selectHero('freya')"><img src="images/freya.png"><div class="hero-name">freya</div></div>
+                <div class="hero-card" onclick="selectHero('fuqiu')"><img src="images/fuqiu.png"><div class="hero-name">fuqiu</div></div>
+                <div class="hero-card" onclick="selectHero('heinrich')"><img src="images/heinrich.png"><div class="hero-name">heinrich</div></div>
+                <div class="hero-card" onclick="selectHero('hellkid')"><img src="images/hellkid.png"><div class="hero-name">hellkid</div></div>
+                <div class="hero-card" onclick="selectHero('holden')"><img src="images/holden.png"><div class="hero-name">holden</div></div>
+                <div class="hero-card" onclick="selectHero('hoyan')"><img src="images/hoyan.png"><div class="hero-name">hoyan</div></div>
+                <div class="hero-card" onclick="selectHero('kethos')"><img src="images/kethos.png"><div class="hero-name">khetos</div></div>
+                <div class="hero-card" onclick="selectHero('kloos')"><img src="images/kloos.png"><div class="hero-name">kloos</div></div>
+                <div class="hero-card" onclick="selectHero('kokardi')"><img src="images/kokardi.png"><div class="hero-name">kokardi</div></div>
+                <div class="hero-card" onclick="selectHero('lilith')"><img src="images/lilith.png"><div class="hero-name">lilith</div></div>
+                <div class="hero-card" onclick="selectHero('lily')"><img src="images/lily.png"><div class="hero-name">lily</div></div>
+                <div class="hero-card" onclick="selectHero('lingluo')"><img src="images/lingluo.png"><div class="hero-name">lingluo</div></div>
+                <div class="hero-card" onclick="selectHero('lowan')"><img src="images/lowan.png"><div class="hero-name">lowan</div></div>
+                <div class="hero-card" onclick="selectHero('massiah')"><img src="images/massiah.png"><div class="hero-name">massiah</div></div>
+                <div class="hero-card" onclick="selectHero('mia')"><img src="images/mia.png"><div class="hero-name">mia</div></div>
+                <div class="hero-card" onclick="selectHero('nahor')"><img src="images/nahor.png"><div class="hero-name">nahor</div></div>
+                <div class="hero-card" onclick="selectHero('nevette')"><img src="images/nevette.png"><div class="hero-name">nevette</div></div>
+                <div class="hero-card" onclick="selectHero('ninfoniel')"><img src="images/ninfoniel.png"><div class="hero-name">ninfoniel</div></div>
+                <div class="hero-card" onclick="selectHero('palin')"><img src="images/palin.png"><div class="hero-name">palin</div></div>
+                <div class="hero-card" onclick="selectHero('
