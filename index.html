@@ -14,8 +14,8 @@
 
     <main class="draft-container">
         <div class="preban-zone">
-            <div id="preban-1" class="slot"></div>
-            <div id="preban-2" class="slot"></div>
+            <div id="preban-1" class="slot active-preban"></div>
+            <div id="preban-2" class="slot active-preban"></div>
         </div>
 
         <section class="character-pool">
@@ -25,48 +25,12 @@
                 <div class="hero-card" onclick="selectHero('beyontin')"><img src="images/beyontin.png"></div>
                 <div class="hero-card" onclick="selectHero('borgne')"><img src="images/borgne.png"></div>
                 <div class="hero-card" onclick="selectHero('celinc')"><img src="images/celinc.png"></div>
-                <div class="hero-card" onclick="selectHero('darksania')"><img src="images/darksania.png"></div>
-                <div class="hero-card" onclick="selectHero('diting')"><img src="images/diting.png"></div>
-                <div class="hero-card" onclick="selectHero('fiamelia')"><img src="images/fiamelia.png"></div>
-                <div class="hero-card" onclick="selectHero('freya')"><img src="images/freya.png"></div>
-                <div class="hero-card" onclick="selectHero('fuqiu')"><img src="images/fuqiu.png"></div>
-                <div class="hero-card" onclick="selectHero('heinrich')"><img src="images/heinrich.png"></div>
-                <div class="hero-card" onclick="selectHero('hellkid')"><img src="images/hellkid.png"></div>
-                <div class="hero-card" onclick="selectHero('holden')"><img src="images/holden.png"></div>
-                <div class="hero-card" onclick="selectHero('hoyan')"><img src="images/hoyan.png"></div>
-                <div class="hero-card" onclick="selectHero('kethos')"><img src="images/kethos.png"></div>
-                <div class="hero-card" onclick="selectHero('kloos')"><img src="images/kloos.png"></div>
-                <div class="hero-card" onclick="selectHero('kokardi')"><img src="images/kokardi.png"></div>
-                <div class="hero-card" onclick="selectHero('lilith')"><img src="images/lilith.png"></div>
-                <div class="hero-card" onclick="selectHero('lily')"><img src="images/lily.png"></div>
-                <div class="hero-card" onclick="selectHero('lingluo')"><img src="images/lingluo.png"></div>
-                <div class="hero-card" onclick="selectHero('lowan')"><img src="images/lowan.png"></div>
-                <div class="hero-card" onclick="selectHero('massiah')"><img src="images/massiah.png"></div>
-                <div class="hero-card" onclick="selectHero('mia')"><img src="images/mia.png"></div>
-                <div class="hero-card" onclick="selectHero('nahor')"><img src="images/nahor.png"></div>
-                <div class="hero-card" onclick="selectHero('nevette')"><img src="images/nevette.png"></div>
-                <div class="hero-card" onclick="selectHero('ninfoniel')"><img src="images/ninfoniel.png"></div>
-                <div class="hero-card" onclick="selectHero('palin')"><img src="images/palin.png"></div>
-                <div class="hero-card" onclick="selectHero('rahu')"><img src="images/rahu.png"></div>
-                <div class="hero-card" onclick="selectHero('raymerry')"><img src="images/raymerry.png"></div>
-                <div class="hero-card" onclick="selectHero('sania')"><img src="images/sania.png"></div>
-                <div class="hero-card" onclick="selectHero('santic')"><img src="images/santic.png"></div>
-                <div class="hero-card" onclick="selectHero('senyu')"><img src="images/senyu.png"></div>
-                <div class="hero-card" onclick="selectHero('sylph')"><img src="images/sylph.png"></div>
-                <div class="hero-card" onclick="selectHero('tiamat')"><img src="images/tiamat.png"></div>
-                <div class="hero-card" onclick="selectHero('tsukyomi')"><img src="images/tsukyomi.png"></div>
-                <div class="hero-card" onclick="selectHero('valerien')"><img src="images/valerien.png"></div>
-                <div class="hero-card" onclick="selectHero('veronica')"><img src="images/veronica.png"></div>
-                <div class="hero-card" onclick="selectHero('viper')"><img src="images/viper.png"></div>
-                <div class="hero-card" onclick="selectHero('yeli')"><img src="images/yeli.png"></div>
-                <div class="hero-card" onclick="selectHero('chiakki')"><img src="images/chiakki.png"></div>
-                <div class="hero-card" onclick="selectHero('durandal')"><img src="images/durandal.png"></div>
-            </div>
+                </div>
         </section>
 
         <div class="teams-area">
             <div class="team-container">
-                <h3 class="label-red">ÉQUIPE ROUGE</h3>
+                <h3 style="color:#ff007a">ÉQUIPE ROUGE</h3>
                 <div class="team-row">
                     <div id="red-1" class="slot"></div>
                     <div id="red-2" class="slot"></div>
@@ -77,7 +41,7 @@
             </div>
 
             <div class="team-container">
-                <h3 class="label-blue">ÉQUIPE BLEUE</h3>
+                <h3 style="color:#00f2ff">ÉQUIPE BLEUE</h3>
                 <div class="team-row">
                     <div id="blue-1" class="slot"></div>
                     <div id="blue-2" class="slot"></div>
@@ -90,7 +54,6 @@
 
         <button id="reset-btn" onclick="resetDraft()">NOUVELLE DRAFT</button>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
