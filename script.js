@@ -15,11 +15,9 @@ function setupNewDraft() {
     currentStep = 0;
     isBanPhase = false;
 
-    // Aléatoire : qui commence ?
     const startingTeam = Math.random() < 0.5 ? "red" : "blue";
     const secondTeam = (startingTeam === "red") ? "blue" : "red";
 
-    // Ordre de Draft : 1 - 2 - 2 - 2 - 2 - 1
     draftOrder = [
         `${startingTeam}-1`, 
         `${secondTeam}-1`, `${secondTeam}-2`,
@@ -30,6 +28,11 @@ function setupNewDraft() {
     ];
 
     updateStatus();
+    
+    // On laisse 100ms au navigateur pour respirer avant d'afficher la lueur
+    setTimeout(() => {
+        highlightNextSlot();
+    }, 100);
     highlightNextSlot();
 }
 
@@ -95,3 +98,4 @@ function updateStatus() {
 function resetDraft() {
     location.reload();
 }
+
