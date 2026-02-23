@@ -5,31 +5,34 @@ let activePrebanSlot = null;
 const draftOrder = ["red-1", "blue-1", "blue-2", "red-2", "red-3", "blue-3", "blue-4", "red-4", "red-5", "blue-5"];
 
 window.onload = function() {
-    // Initialisation des pre-bans
+    // Rendre les slots de pre-ban cliquables
     const pb1 = document.getElementById('preban-1');
     const pb2 = document.getElementById('preban-2');
-    if(pb1) pb1.onclick = () => activePrebanSlot = 'preban-1';
-    if(pb2) pb2.onclick = () => activePrebanSlot = 'preban-2';
+    if(pb1) pb1.onclick = () => { activePrebanSlot = 'preban-1'; console.log("Preban 1 sélectionné"); };
+    if(pb2) pb2.onclick = () => { activePrebanSlot = 'preban-2'; console.log("Preban 2 sélectionné"); };
 };
 
 function selectHero(heroName) {
     if (isBanPhase) return;
 
     const imgPath = `images/${heroName}.png`;
-    const heroHTML = `<img src="${imgPath}">`;
+    const heroHTML = `<img src="${imgPath}" alt="${heroName}">`;
 
+    // 1. Si on a cliqué sur un slot de Pre-ban avant
     if (activePrebanSlot) {
         document.getElementById(activePrebanSlot).innerHTML = heroHTML;
         activePrebanSlot = null;
         return;
     }
 
+    // 2. Draft classique
     if (currentStep < draftOrder.length) {
         const targetId = draftOrder[currentStep];
         const slot = document.getElementById(targetId);
         
         slot.innerHTML = heroHTML;
         
+        // Setup du ban pour la phase finale
         if (!targetId.includes('-3')) {
             slot.onclick = function() {
                 if (isBanPhase) slot.classList.toggle('banned');
