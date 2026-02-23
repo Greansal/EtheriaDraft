@@ -1,24 +1,18 @@
-/* Le conteneur (la case) */
 .slot {
-    width: 65px; /* Garde la largeur d'origine */
-    height: 65px; /* On force une hauteur carrée pour couper le surplus */
+    width: 65px !important;
+    height: 70px !important; /* Hauteur fixe pour couper le bas de l'image */
     background-color: #1a1f26;
     border-radius: 4px;
     position: relative;
-    
-    /* LE SECRET EST ICI */
-    overflow: hidden; /* Tout ce qui dépasse de la case de 65px est masqué */
+    overflow: hidden !important; /* TRÈS IMPORTANT : Coupe tout le surplus */
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Aligne l'image sur le haut pour voir le visage */
+    align-items: flex-start; /* Garde la tête en haut */
 }
 
-/* L'image à l'intérieur */
 .slot img {
-    width: 100%; /* L'image prend toute la largeur de la case */
-    height: auto; /* Elle garde ses proportions réelles (pas de déformation) */
-    
-    /* Ajustement manuel si besoin */
-    object-fit: cover; 
-    object-position: top; /* Priorité sur le haut de l'image */
+    width: 100% !important;
+    height: auto !important; /* Garde les proportions réelles */
+    display: block;
+    /* On ne touche pas au ratio pour ne pas déformer */
 }
