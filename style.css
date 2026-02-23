@@ -44,21 +44,21 @@ header { text-align: center; margin-bottom: 20px; }
 
 .hero-name { display: none; }
 
-/* ANIMATIONS DE SURBRILLANCE (Indicateur de tour) */
+/* Animation de pulsation forcée */
 @keyframes pulse-red {
-    0% { box-shadow: 0 0 5px #ff007a; border-color: #ff007a; }
-    50% { box-shadow: 0 0 20px #ff007a; border-color: #ff007a; }
-    100% { box-shadow: 0 0 5px #ff007a; border-color: #ff007a; }
+    0% { box-shadow: 0 0 5px #ff007a; border: 3px solid #ff007a !important; }
+    50% { box-shadow: 0 0 25px #ff007a; border: 3px solid #ff007a !important; }
+    100% { box-shadow: 0 0 5px #ff007a; border: 3px solid #ff007a !important; }
 }
 
 @keyframes pulse-blue {
-    0% { box-shadow: 0 0 5px #00f2ff; border-color: #00f2ff; }
-    50% { box-shadow: 0 0 20px #00f2ff; border-color: #00f2ff; }
-    100% { box-shadow: 0 0 5px #00f2ff; border-color: #00f2ff; }
+    0% { box-shadow: 0 0 5px #00f2ff; border: 3px solid #00f2ff !important; }
+    50% { box-shadow: 0 0 25px #00f2ff; border: 3px solid #00f2ff !important; }
+    100% { box-shadow: 0 0 5px #00f2ff; border: 3px solid #00f2ff !important; }
 }
 
-.glow-red { animation: pulse-red 1.5s infinite; border-width: 2px !important; }
-.glow-blue { animation: pulse-blue 1.5s infinite; border-width: 2px !important; }
+.glow-red { animation: pulse-red 1.2s infinite !important; z-index: 10; }
+.glow-blue { animation: pulse-blue 1.2s infinite !important; z-index: 10; }
 
 /* EQUIPES FACE À FACE */
 .teams-area {
@@ -88,3 +88,4 @@ header { text-align: center; margin-bottom: 20px; }
     cursor: pointer;
     font-weight: bold;
 }
+
