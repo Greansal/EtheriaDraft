@@ -1,130 +1,47 @@
-:root {
-    --bg-color: #0b0e14;
-    --card-bg: #1a1f26;
-    --neon-blue: #00f2ff;
-    --neon-pink: #ff007a;
-    --protect-gold: #ffd700;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    touch-action: manipulation;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: white;
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-}
-
-#status-message {
-    margin: 10px 0 20px 0;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.draft-container { width: 100%; max-width: 900px; }
-
-/* GRILLE DE SÉLECTION */
-.character-pool {
-    background: var(--card-bg);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-    gap: 8px;
-}
-
-/* LE MASQUE MAGIQUE */
-.hero-card, .slot {
-    overflow: hidden; /* Coupe tout ce qui dépasse */
+/* Style pour tous les conteneurs d'images (Pool, Slots, Prebans) */
+.hero-card, .slot, .active-preban {
+    overflow: hidden; /* Cache tout ce qui dépasse du carré */
     position: relative;
-}
-
-.img-wrapper {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-start; /* Aligne l'image en haut */
-}
-
-.hero-card img, .slot img {
-    width: 100%;
-    height: 140%; /* L'image est plus grande que son cadre */
-    object-fit: cover;
-    object-position: top; /* On garde les visages */
-}
-
-.hero-card {
-    aspect-ratio: 1/1;
-    background: #252b33;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* EQUIPES */
-.teams-area {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.team-row { display: flex; gap: 5px; }
-
-.slot {
-    width: 55px;
-    height: 55px;
-    background: #14181f;
-    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #444;
 }
 
-/* ÉTATS SPÉCIAUX */
-.protect-slot { 
-    border: 2px solid var(--protect-gold) !important;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+/* Le wrapper qui contient l'image */
+.img-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligne sur le haut du crâne */
+    overflow: hidden;
 }
 
-.slot.banned .img-wrapper { filter: grayscale(100%) brightness(30%); }
-.slot.banned::after {
-    content: "✕";
-    position: absolute;
-    color: #ff004c;
-    font-size: 40px;
-    font-weight: bold;
-    text-shadow: 0 0 10px black;
-    z-index: 5;
-}
-
-#reset-btn {
+.hero-img, .hero-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* ZOOM : 1.4 agrandit assez pour sortir les textes du cadre */
+    /* TRANSLATEY : Ajuste pour remonter l'image si besoin */
+    transform: scale(1.4) translateY(5%); 
+    transform-origin: top center;
     display: block;
-    margin: 40px auto;
-    padding: 12px 30px;
-    background: transparent;
-    color: var(--neon-blue);
-    border: 1px solid var(--neon-blue);
-    border-radius: 4px;
-    cursor: pointer;
-    text-transform: uppercase;
 }
 
-@media (max-width: 600px) {
-    .grid { grid-template-columns: repeat(6, 1fr); }
-    .slot { width: 38px; height: 38px; }
-    .slot.banned::after { font-size: 26px; }
+/* Ajustement spécifique pour les Pre-bans (souvent plus petits) */
+.active-preban .img-container img {
+    transform: scale(1.5) translateY(8%);
+}
+
+/* Correction pour les slots d'équipe */
+.slot {
+    width: 65px;  /* On agrandit un peu les cases pour mieux voir */
+    height: 65px;
+    border-radius: 6px;
+}
+
+/* On garde la croix de ban bien visible au centre */
+.slot.banned::after {
+    z-index: 10;
+    pointer-events: none;
 }
