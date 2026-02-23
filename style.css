@@ -1,4 +1,3 @@
-/* BASE */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
     background-color: #0b0e14;
@@ -10,27 +9,27 @@ body {
     padding: 20px;
 }
 
-/* EN-TÊTE ET PRÉ-BANS AUX EXTRÉMITÉS */
+/* LE BANDEAU SUPÉRIEUR */
 .preban-container {
     display: flex;
-    justify-content: space-between; /* Écarte les pré-bans vers les bords */
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1000px; /* Largeur de la zone titre + prébans */
-    margin: 0 auto 30px auto;
+    max-width: 850px; /* Aligné sur la largeur des équipes */
+    margin: 10px auto 40px auto;
 }
 
-.header-center { text-align: center; flex: 1; }
+.header-center { text-align: center; }
 .highlight { color: #00f2ff; }
 
-/* GRILLE DE SÉLECTION */
+/* LA GRILLE */
 .grid {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    max-width: 950px;
-    margin: 20px auto;
+    max-width: 900px;
+    margin-bottom: 30px;
 }
 
 .hero-card, .slot {
@@ -41,44 +40,32 @@ body {
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;
-    position: relative;
 }
 
 .hero-card img, .slot img { width: 100%; height: auto; display: block; }
 
-/* LUEURS DE TOUR ACTIF */
-@keyframes pulse-red {
-    0% { box-shadow: 0 0 5px #ff007a; border-color: #ff007a; }
-    50% { box-shadow: 0 0 20px #ff007a; border-color: #ff007a; }
-    100% { box-shadow: 0 0 5px #ff007a; border-color: #ff007a; }
-}
-
-@keyframes pulse-blue {
-    0% { box-shadow: 0 0 5px #00f2ff; border-color: #00f2ff; }
-    50% { box-shadow: 0 0 20px #00f2ff; border-color: #00f2ff; }
-    100% { box-shadow: 0 0 5px #00f2ff; border-color: #00f2ff; }
-}
-
-.glow-red { animation: pulse-red 1.5s infinite !important; border: 2px solid #ff007a !important; }
-.glow-blue { animation: pulse-blue 1.5s infinite !important; border: 2px solid #00f2ff !important; }
-
-/* ÉQUIPES */
-.teams-area { display: flex; justify-content: center; gap: 60px; width: 100%; margin-top: 30px; }
+/* LES ÉQUIPES */
+.teams-area { display: flex; justify-content: center; gap: 50px; width: 100%; }
 .team-container { display: flex; flex-direction: column; align-items: center; }
 .team-row { display: flex; gap: 8px; margin-top: 10px; }
-.label-red { color: #ff007a; }
-.label-blue { color: #00f2ff; }
+.label-red { color: #ff007a; margin-bottom: 5px; }
+.label-blue { color: #00f2ff; margin-bottom: 5px; }
 
-/* ÉTATS */
+/* ÉTATS ET ANIMATIONS */
 .active-preban { border: 2px solid #ff004c !important; }
 .slot.gold { border: 2px solid #ffd700; }
-.slot.banned img { filter: grayscale(100%) brightness(30%); border: 1px solid red; }
+.slot.banned img { filter: grayscale(100%) brightness(30%); }
 
-/* BOUTON RESET CENTRÉ PARFAITEMENT */
+@keyframes pulse-red { 50% { box-shadow: 0 0 15px #ff007a; border-color: #ff007a; } }
+@keyframes pulse-blue { 50% { box-shadow: 0 0 15px #00f2ff; border-color: #00f2ff; } }
+.glow-red { animation: pulse-red 1.5s infinite !important; }
+.glow-blue { animation: pulse-blue 1.5s infinite !important; }
+
+/* BOUTON RESET */
 #reset-btn {
     display: block;
-    margin: 40px auto 20px auto; /* Centrage automatique */
-    padding: 12px 24px;
+    margin: 50px auto;
+    padding: 12px 25px;
     background: transparent;
     border: 2px solid #00f2ff;
     color: #00f2ff;
