@@ -34,10 +34,10 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
     font-size: 0.8rem;
     font-weight: bold;
     text-transform: uppercase;
+    min-height: 1.2rem;
 }
 
 .draft-container { width: 100%; max-width: 900px; }
-
 .preban-zone { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
 
 .character-pool {
@@ -55,7 +55,7 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
 
 .hero-card { background: #252b33; border-radius: 4px; overflow: hidden; cursor: pointer; }
 .hero-card img { width: 100%; height: auto; display: block; }
-.hero-name { display: none !important; }
+.hero-name, .hero-card div { display: none !important; }
 
 .teams-area {
     display: flex;
@@ -77,14 +77,13 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
     width: 50px;
     height: 50px;
     background: #14181f;
-    border: 1px dashed #444;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .slot img {
@@ -94,42 +93,45 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
     object-position: top;
 }
 
-/* STYLE SLOT PROTECT (Slot 3) */
+/* STYLE DU SLOT PROTECT (DORÉ) */
 .protect-slot {
-    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.3);
-    background: linear-gradient(45deg, #14181f, #1a1a00);
+    border: 2px solid var(--protect-gold) !important;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    background: #1a1a00;
 }
 
-/* FILTRE BAN FINAL (Barré et Grisé) */
+/* SYSTÈME DE BAN FINAL */
 .slot.banned img {
-    filter: grayscale(100%) brightness(40%);
+    filter: grayscale(100%) brightness(30%);
 }
 
 .slot.banned::after {
     content: "✕";
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: #ff004c;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
-    text-shadow: 0 0 10px black;
-    z-index: 10;
+    text-shadow: 0 0 8px black;
+    pointer-events: none;
 }
 
 #reset-btn {
     display: block;
     margin: 20px auto;
-    padding: 8px 20px;
+    padding: 10px 25px;
     background: transparent;
     color: var(--neon-blue);
     border: 1px solid var(--neon-blue);
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.7rem;
-    text-transform: uppercase;
 }
 
 @media (max-width: 600px) {
     .grid { grid-template-columns: repeat(6, 1fr); }
     .slot { width: 34px; height: 34px; }
-    .slot.banned::after { font-size: 25px; }
+    .slot.banned::after { font-size: 24px; }
 }
