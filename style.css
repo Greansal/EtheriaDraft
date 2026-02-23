@@ -1,47 +1,83 @@
-/* Style pour tous les conteneurs d'images (Pool, Slots, Prebans) */
-.hero-card, .slot, .active-preban {
-    overflow: hidden; /* Cache tout ce qui dépasse du carré */
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+:root {
+    --bg-color: #0b0e14;
+    --protect-gold: #ffd700;
 }
 
-/* Le wrapper qui contient l'image */
+body {
+    background-color: var(--bg-color);
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+/* CONTENEUR IMAGE AVEC ZOOM */
 .img-container {
     width: 100%;
     height: 100%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Aligne sur le haut du crâne */
-    overflow: hidden;
+    align-items: flex-start;
 }
 
 .hero-img, .hero-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* ZOOM : 1.4 agrandit assez pour sortir les textes du cadre */
-    /* TRANSLATEY : Ajuste pour remonter l'image si besoin */
-    transform: scale(1.4) translateY(5%); 
+    /* Zoom de 1.5 pour éliminer les textes en bas et garder le portrait */
+    transform: scale(1.5);
     transform-origin: top center;
     display: block;
 }
 
-/* Ajustement spécifique pour les Pre-bans (souvent plus petits) */
-.active-preban .img-container img {
-    transform: scale(1.5) translateY(8%);
-}
-
-/* Correction pour les slots d'équipe */
+/* SLOTS EQUIPES */
 .slot {
-    width: 65px;  /* On agrandit un peu les cases pour mieux voir */
-    height: 65px;
+    width: 60px;
+    height: 60px;
+    background: #14181f;
     border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* On garde la croix de ban bien visible au centre */
+.slot-number {
+    color: #444;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* BAN FINAL VISUEL */
+.slot.banned .img-container {
+    filter: grayscale(100%) brightness(30%);
+}
+
 .slot.banned::after {
+    content: "✕";
+    position: absolute;
+    color: #ff004c;
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 0 0 10px black;
     z-index: 10;
-    pointer-events: none;
+}
+
+/* SLOT 3 PROTEGE */
+.protect-slot, [id$="-3"] {
+    border: 2px solid var(--protect-gold) !important;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+}
+
+/* POOL DE HEROS */
+.hero-card {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #252b33;
 }
