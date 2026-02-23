@@ -12,10 +12,10 @@ function initDraft() {
     
     if (random < 0.5) {
         draftOrder = redFirst;
-        document.getElementById('status-message').innerHTML = "PHASE : PRE-BAN | <span style='color:#ff007a'>ROUGE COMMENCERA</span>";
+        document.getElementById('status-message').innerHTML = "PHASE : PRE-BAN | <span style='color:#ff007a'>ROUGE COMMENCE</span>";
     } else {
         draftOrder = blueFirst;
-        document.getElementById('status-message').innerHTML = "PHASE : PRE-BAN | <span style='color:#00f2ff'>BLEU COMMENCERA</span>";
+        document.getElementById('status-message').innerHTML = "PHASE : PRE-BAN | <span style='color:#00f2ff'>BLEU COMMENCE</span>";
     }
 
     document.querySelectorAll('.slot').forEach(slot => {
@@ -39,23 +39,21 @@ function selectPrebanSlot(slotId) {
         s.style.boxShadow = "none";
         s.style.backgroundColor = "#14181f";
     });
-    
     activePrebanSlot = slotId;
     const el = document.getElementById(slotId);
     el.style.boxShadow = "0 0 20px #ff004c";
     el.style.backgroundColor = "#300b16";
-    document.getElementById('status-message').innerText = "CLIQUE SUR UN HÉROS POUR LE BAN";
 }
 
 function selectHero(heroName) {
+    const imgHTML = `<img src="images/${heroName}.png" style="width:100%; height:100%; object-fit:cover; object-position: top;">`;
+    
     if (activePrebanSlot) {
         const slot = document.getElementById(activePrebanSlot);
-        slot.innerHTML = `<img src="images/${heroName}.png">`;
+        slot.innerHTML = imgHTML;
         slot.style.boxShadow = "none";
         slot.style.backgroundColor = "#14181f";
         activePrebanSlot = null;
-        document.getElementById('status-message').innerText = "BAN EFFECTUÉ ! CONTINUE OU DRAFTE";
-        highlightNextSlot();
         return;
     }
 
@@ -63,7 +61,7 @@ function selectHero(heroName) {
     
     const targetId = draftOrder[currentStep];
     const slot = document.getElementById(targetId);
-    slot.innerHTML = `<img src="images/${heroName}.png">`;
+    slot.innerHTML = imgHTML;
     slot.classList.add('active');
     
     currentStep++;
@@ -80,10 +78,11 @@ function highlightNextSlot() {
         document.getElementById(nextId).style.border = "2px solid white";
         const team = nextId.includes('red') ? "ROUGE" : "BLEUE";
         const color = nextId.includes('red') ? "#ff007a" : "#00f2ff";
-        document.getElementById('status-message').innerHTML = `TOUR : <span style="color:${color}">${team}</span>`;
+        document.getElementById('status-message').innerHTML = `AU TOUR DE : <span style="color:${color}">${team}</span>`;
     } else {
         document.getElementById('status-message').innerText = "DRAFT TERMINÉE !";
     }
 }
 
-function resetDraft() {
+function resetDraft() { initDraft(); }
+window.onload = initDraft;
