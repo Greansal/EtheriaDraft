@@ -24,11 +24,10 @@ function initDraft() {
         slot.classList.remove('active', 'banned');
         slot.innerHTML = slot.id.split('-')[1];
         slot.style.backgroundColor = "#14181f";
-        slot.style.boxShadow = "none";
         
         if (slot.classList.contains('active-preban')) {
             slot.style.border = "2px solid #ff004c";
-            slot.onmousedown = function() { selectPrebanSlot(slot.id); };
+            slot.onmousedown = function(e) { e.preventDefault(); selectPrebanSlot(slot.id); };
         } else {
             if (slot.id.includes('-3')) {
                 slot.style.border = "2px solid #ffd700";
@@ -48,13 +47,13 @@ function selectPrebanSlot(slotId) {
     });
     activePrebanSlot = slotId;
     const el = document.getElementById(slotId);
-    el.style.boxShadow = "0 0 20px #ff004c";
+    el.style.boxShadow = "0 0 15px #ff004c";
     el.style.backgroundColor = "#300b16";
 }
 
 function selectHero(heroName) {
     if (isBanPhase) return;
-    const imgHTML = `<img src="images/${heroName}.png">`;
+    const imgHTML = `<img src="images/${heroName}.png" class="hero-img">`;
     
     if (activePrebanSlot) {
         const slot = document.getElementById(activePrebanSlot);
@@ -72,11 +71,12 @@ function selectHero(heroName) {
     slot.innerHTML = imgHTML;
     slot.classList.add('active');
     
-    if (!targetId.includes('-3')) {
-        slot.onmousedown = function() { 
-            if (isBanPhase) slot.classList.toggle('banned');
-        };
-    }
+    // Activer le clic pour le ban final
+    slot.onmousedown = function() { 
+        if (isBanPhase && !targetId.includes('-3')) {
+            slot.classList.toggle('banned');
+        }
+    };
 
     currentStep++;
     highlightNextSlot();
@@ -90,7 +90,7 @@ function highlightNextSlot() {
         document.getElementById('status-message').innerHTML = `AU TOUR DE : <span style="color:${color}">${team}</span>`;
     } else {
         isBanPhase = true;
-        document.getElementById('status-message').innerHTML = "<span style='color:#ffd700'>PHASE DE BAN FINAL (Cliquez sur l'ennemi)</span>";
+        document.getElementById('status-message').innerHTML = "<span style='color:#ffd700'>BAN FINAL : CLIQUEZ SUR LES ENNEMIS</span>";
     }
 }
 
