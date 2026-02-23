@@ -76,11 +76,42 @@ header h1 { font-size: 1.8rem; }
 
 /* --- ÉTATS ET ANIMATIONS MODIFIÉS --- */
 
-/* Animation de clignotement pour les pré-bans */
+/* Animation de pulsation plus agressive */
 @keyframes pulse-preban {
-    0% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
-    50% { box-shadow: 0 0 20px #ff004c; border-color: #ff4d88; }
-    100% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
+    0% { 
+        box-shadow: 0 0 5px #ff004c; 
+        border-color: #ff004c;
+        background-color: rgba(255, 0, 76, 0.1); 
+    }
+    50% { 
+        box-shadow: 0 0 25px #ff004c; 
+        border-color: #ff4d88;
+        background-color: rgba(255, 0, 76, 0.3); /* Le slot se remplit de rouge */
+    }
+    100% { 
+        box-shadow: 0 0 5px #ff004c; 
+        border-color: #ff004c;
+        background-color: rgba(255, 0, 76, 0.1);
+    }
 }
 
-/* On applique l'animation à la classe active-pre
+/* Application sur les slots actifs */
+.active-preban {
+    border: 3px solid #ff004c !important; /* Bordure un peu plus épaisse */
+    animation: pulse-preban 1s infinite ease-in-out; /* Plus rapide (1s au lieu de 1.5s) */
+    cursor: pointer;
+    position: relative;
+}
+
+/* Petit texte "!" au-dessus pour attirer l'oeil (optionnel) */
+.active-preban::before {
+    content: "BAN";
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff004c;
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
