@@ -6,7 +6,7 @@ let draftOrder = [];
 window.onload = function() {
     setupNewDraft();
     
-    // Setup clics Pre-ban
+    // Initialisation des clics sur les pré-bans
     document.getElementById('preban-1').onclick = () => activePrebanSlot = 'preban-1';
     document.getElementById('preban-2').onclick = () => activePrebanSlot = 'preban-2';
 };
@@ -15,11 +15,11 @@ function setupNewDraft() {
     currentStep = 0;
     isBanPhase = false;
 
-    // Aléatoire : qui commence ?
+    // Aléatoire : Pile ou face pour le premier joueur
     const startingTeam = Math.random() < 0.5 ? "red" : "blue";
     const secondTeam = (startingTeam === "red") ? "blue" : "red";
 
-    // Ordre : 1 - 2 - 2 - 2 - 2 - 1
+    // Ordre de Draft Serpent (1-2-2-2-2-1)
     draftOrder = [
         `${startingTeam}-1`, 
         `${secondTeam}-1`, `${secondTeam}-2`,
@@ -39,12 +39,14 @@ function selectHero(heroName) {
     const imgPath = `images/${heroName}.png`;
     const heroHTML = `<img src="${imgPath}">`;
 
+    // 1. Remplissage des pré-bans
     if (activePrebanSlot) {
         document.getElementById(activePrebanSlot).innerHTML = heroHTML;
         activePrebanSlot = null;
         return;
     }
 
+    // 2. Remplissage de la Draft
     if (currentStep < draftOrder.length) {
         const targetId = draftOrder[currentStep];
         const slot = document.getElementById(targetId);
@@ -52,7 +54,7 @@ function selectHero(heroName) {
         slot.innerHTML = heroHTML;
         slot.classList.remove('glow-red', 'glow-blue');
 
-        // On attache la fonction de ban au clic sur le slot rempli
+        // Permet de cliquer sur l'image pour bannir à la fin
         slot.onclick = function() {
             if (isBanPhase) {
                 this.classList.toggle('banned');
@@ -88,4 +90,7 @@ function updateStatus() {
     }
 }
 
-function resetDraft() { location.reload(); }
+// Fonction Reset qui fonctionne
+function resetDraft() {
+    location.reload();
+}
