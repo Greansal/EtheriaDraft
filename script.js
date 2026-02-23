@@ -18,7 +18,6 @@ function initDraft() {
         document.getElementById('status-message').innerHTML = "PHASE : PRE-BAN | <span style='color:#00f2ff'>BLEU COMMENCERA</span>";
     }
 
-    // Reset complet des slots
     document.querySelectorAll('.slot').forEach(slot => {
         slot.classList.remove('active');
         slot.style.boxShadow = "none";
@@ -27,7 +26,6 @@ function initDraft() {
 
         if (slot.classList.contains('active-preban')) {
             slot.style.border = "2px solid #ff004c";
-            // On utilise une méthode plus robuste pour le clic
             slot.onmousedown = function() { selectPrebanSlot(slot.id); };
         } else {
             slot.style.border = "2px dashed #333";
@@ -37,7 +35,6 @@ function initDraft() {
 }
 
 function selectPrebanSlot(slotId) {
-    // On nettoie les anciens choix
     document.querySelectorAll('.active-preban').forEach(s => {
         s.style.boxShadow = "none";
         s.style.backgroundColor = "#14181f";
@@ -46,14 +43,14 @@ function selectPrebanSlot(slotId) {
     activePrebanSlot = slotId;
     const el = document.getElementById(slotId);
     el.style.boxShadow = "0 0 20px #ff004c";
-    el.style.backgroundColor = "#300b16"; // Un petit fond rouge pour montrer l'activation
+    el.style.backgroundColor = "#300b16";
     document.getElementById('status-message').innerText = "CLIQUE SUR UN HÉROS POUR LE BAN";
 }
 
 function selectHero(heroName) {
     if (activePrebanSlot) {
         const slot = document.getElementById(activePrebanSlot);
-        slot.innerHTML = `<img src="images/${heroName}.png" style="width:100%; height:100%; object-fit:cover;">`;
+        slot.innerHTML = `<img src="images/${heroName}.png">`;
         slot.style.boxShadow = "none";
         slot.style.backgroundColor = "#14181f";
         activePrebanSlot = null;
@@ -66,7 +63,7 @@ function selectHero(heroName) {
     
     const targetId = draftOrder[currentStep];
     const slot = document.getElementById(targetId);
-    slot.innerHTML = `<img src="images/${heroName}.png" style="width:100%; height:100%; object-fit:cover;">`;
+    slot.innerHTML = `<img src="images/${heroName}.png">`;
     slot.classList.add('active');
     
     currentStep++;
@@ -89,5 +86,4 @@ function highlightNextSlot() {
     }
 }
 
-function resetDraft() { initDraft(); }
-window.onload = initDraft;
+function resetDraft() {
