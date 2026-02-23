@@ -4,33 +4,36 @@ let activePrebanSlot = null;
 
 const draftOrder = ["red-1", "blue-1", "blue-2", "red-2", "red-3", "blue-3", "blue-4", "red-4", "red-5", "blue-5"];
 
-// Gestion des clics sur les slots de pre-ban
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('preban-1').onclick = () => activePrebanSlot = 'preban-1';
-    document.getElementById('preban-2').onclick = () => activePrebanSlot = 'preban-2';
-});
+// Initialisation des clics Pre-ban
+window.onload = function() {
+    const pb1 = document.getElementById('preban-1');
+    const pb2 = document.getElementById('preban-2');
+    if(pb1) pb1.onclick = () => activePrebanSlot = 'preban-1';
+    if(pb2) pb2.onclick = () => activePrebanSlot = 'preban-2';
+};
 
 function selectHero(heroName) {
     if (isBanPhase) return;
 
-    // On utilise une balise IMG pour voir l'image ENTIÈRE
+    // Création de la balise image simple (Taille réelle)
     const imgPath = `images/${heroName}.png`;
     const heroHTML = `<img src="${imgPath}" alt="${heroName}">`;
 
-    // 1. Pre-bans
+    // 1. Gestion Pre-bans
     if (activePrebanSlot) {
         document.getElementById(activePrebanSlot).innerHTML = heroHTML;
         activePrebanSlot = null;
         return;
     }
 
-    // 2. Draft
+    // 2. Gestion Draft
     if (currentStep < draftOrder.length) {
         const targetId = draftOrder[currentStep];
         const slot = document.getElementById(targetId);
         
         slot.innerHTML = heroHTML;
         
+        // Setup du ban final (cliquable après la draft)
         if (!targetId.includes('-3')) {
             slot.onclick = function() {
                 if (isBanPhase) slot.classList.toggle('banned');
