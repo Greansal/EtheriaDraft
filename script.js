@@ -24,10 +24,11 @@ function initDraft() {
         slot.classList.remove('active', 'banned');
         slot.innerHTML = slot.id.split('-')[1];
         slot.style.backgroundColor = "#14181f";
+        slot.style.boxShadow = "none";
         
         if (slot.classList.contains('active-preban')) {
             slot.style.border = "2px solid #ff004c";
-            slot.onmousedown = function(e) { e.preventDefault(); selectPrebanSlot(slot.id); };
+            slot.onmousedown = function(e) { selectPrebanSlot(slot.id); };
         } else {
             if (slot.id.includes('-3')) {
                 slot.style.border = "2px solid #ffd700";
@@ -53,7 +54,8 @@ function selectPrebanSlot(slotId) {
 
 function selectHero(heroName) {
     if (isBanPhase) return;
-    const imgHTML = `<img src="images/${heroName}.png" class="hero-img">`;
+    // On utilise une classe CSS dédiée pour le cadrage
+    const imgHTML = `<div class="img-wrapper"><img src="images/${heroName}.png"></div>`;
     
     if (activePrebanSlot) {
         const slot = document.getElementById(activePrebanSlot);
@@ -71,12 +73,11 @@ function selectHero(heroName) {
     slot.innerHTML = imgHTML;
     slot.classList.add('active');
     
-    // Activer le clic pour le ban final
-    slot.onmousedown = function() { 
-        if (isBanPhase && !targetId.includes('-3')) {
-            slot.classList.toggle('banned');
-        }
-    };
+    if (!targetId.includes('-3')) {
+        slot.onmousedown = function() { 
+            if (isBanPhase) slot.classList.toggle('banned');
+        };
+    }
 
     currentStep++;
     highlightNextSlot();
@@ -90,7 +91,7 @@ function highlightNextSlot() {
         document.getElementById('status-message').innerHTML = `AU TOUR DE : <span style="color:${color}">${team}</span>`;
     } else {
         isBanPhase = true;
-        document.getElementById('status-message').innerHTML = "<span style='color:#ffd700'>BAN FINAL : CLIQUEZ SUR LES ENNEMIS</span>";
+        document.getElementById('status-message').innerHTML = "<span style='color:#ffd700'>PHASE DE BAN FINAL (Cliquez sur l'ennemi)</span>";
     }
 }
 
