@@ -1,37 +1,71 @@
-/* Verrouillage des dimensions pour empêcher l'empilement vertical */
-.slot, .hero-card, .active-preban {
-    width: 60px !important;
-    height: 60px !important;
-    border-radius: 4px;
-    overflow: hidden !important; /* Coupe tout ce qui dépasse */
-    position: relative;
-    background-color: #1a1f26;
-    display: inline-block; /* Aligne les éléments horizontalement */
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: #0b0e14;
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
-/* On utilise une div pour l'image pour un contrôle total du zoom */
-.hero-view {
-    width: 100%;
-    height: 100%;
-    background-size: 150%; /* ZOOM : agrandit pour cacher les textes */
-    background-position: top center; /* CADRAGE : garde la tête du perso */
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-/* Fix pour la grille des personnages */
+/* GRILLE DE SELECTION */
 .grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
-    max-width: 750px;
-    margin: 20px auto;
+    max-width: 1100px;
+    margin: 20px 0;
 }
 
-/* Ban Final */
-.slot.banned .hero-view {
-    filter: grayscale(100%) brightness(30%);
+/* LES CASES (Héros et Slots) */
+.hero-card, .slot {
+    /* L'ASTUCE : On ne donne pas de taille fixe ici */
+    width: fit-content; 
+    height: fit-content;
+    background-color: #1a1f26;
+    border: 1px solid #333;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
 }
+
+/* L'IMAGE : On lui donne la taille que TU veux */
+.hero-card img, .slot img {
+    display: block;
+    /* CHANGE CES DEUX CHIFFRES pour ajuster la taille globale */
+    width: 70px;  /* Largeur voulue */
+    height: auto; /* La hauteur s'ajuste toute seule pour ne pas écraser */
+}
+
+/* ALIGNEMENT DES EQUIPES */
+.teams-container {
+    display: flex;
+    flex-direction: row; /* Force l'alignement horizontal des deux blocs équipes */
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slots-row {
+    display: flex;
+    flex-direction: row; /* Force les 5 slots à être l'un à côté de l'autre */
+    gap: 10px;
+}
+
+/* ETATS SPECIAUX */
+.active-preban { border: 2px solid #ff004c; min-width: 50px; min-height: 50px; }
+[id$="-3"] { border: 2px solid #ffd700; }
+.slot.banned img { filter: grayscale(100%) brightness(30%); }
+
+button { margin-top: 30px; padding: 10px 20px; cursor: pointer; }
