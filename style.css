@@ -24,42 +24,54 @@ body {
 }
 
 #status-message {
-    margin: 10px 0;
-    font-size: 0.85rem;
+    margin: 10px 0 20px 0;
+    font-size: 0.9rem;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 .draft-container { width: 100%; max-width: 900px; }
 
-/* GRILLE : ON COUPE LE BAS DES IMAGES */
+/* GRILLE DE SÉLECTION */
 .character-pool {
     background: var(--card-bg);
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+    gap: 8px;
+}
+
+/* LE MASQUE MAGIQUE */
+.hero-card, .slot {
+    overflow: hidden; /* Coupe tout ce qui dépasse */
+    position: relative;
+}
+
+.img-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start; /* Aligne l'image en haut */
+}
+
+.hero-card img, .slot img {
+    width: 100%;
+    height: 140%; /* L'image est plus grande que son cadre */
+    object-fit: cover;
+    object-position: top; /* On garde les visages */
 }
 
 .hero-card {
+    aspect-ratio: 1/1;
     background: #252b33;
     border-radius: 4px;
-    overflow: hidden;
     cursor: pointer;
-    height: 60px; /* On force une hauteur courte */
-}
-
-.hero-card img {
-    width: 100%;
-    height: 100px; /* L'image est plus haute que le cadre */
-    object-fit: cover;
-    object-position: top; /* On garde la tête */
-    display: block;
 }
 
 /* EQUIPES */
@@ -67,56 +79,52 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: 10px;
 }
 
-.team-row { display: flex; gap: 4px; }
+.team-row { display: flex; gap: 5px; }
 
 .slot {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     background: #14181f;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    position: relative;
-}
-
-.slot img {
-    width: 100%;
-    height: 80px; /* Plus haut pour cacher le texte */
-    object-fit: cover;
-    object-position: top;
+    color: #444;
 }
 
 /* ÉTATS SPÉCIAUX */
-.protect-slot { border: 2px solid var(--protect-gold) !important; }
+.protect-slot { 
+    border: 2px solid var(--protect-gold) !important;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
 
-.slot.banned img { filter: grayscale(100%) brightness(30%); }
+.slot.banned .img-wrapper { filter: grayscale(100%) brightness(30%); }
 .slot.banned::after {
     content: "✕";
     position: absolute;
     color: #ff004c;
-    font-size: 35px;
+    font-size: 40px;
     font-weight: bold;
-    pointer-events: none;
+    text-shadow: 0 0 10px black;
+    z-index: 5;
 }
 
 #reset-btn {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
+    margin: 40px auto;
+    padding: 12px 30px;
     background: transparent;
     color: var(--neon-blue);
     border: 1px solid var(--neon-blue);
     border-radius: 4px;
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 @media (max-width: 600px) {
     .grid { grid-template-columns: repeat(6, 1fr); }
-    .slot { width: 34px; height: 34px; }
-    .hero-card { height: 45px; }
+    .slot { width: 38px; height: 38px; }
+    .slot.banned::after { font-size: 26px; }
 }
