@@ -1,32 +1,137 @@
-/* Verrouille la taille des cases pour éviter l'empilement géant */
-.slot, .hero-card, .active-preban {
-    width: 65px !important;
-    height: 65px !important;
-    overflow: hidden !important; /* Interdit tout débordement */
-    position: relative;
-    background-color: #1a1f26;
+:root {
+    --bg-color: #0b0e14;
+    --card-bg: #1a1f26;
+    --neon-blue: #00f2ff;
+    --neon-pink: #ff007a;
+    --protect-gold: #ffd700;
+    --text-color: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    touch-action: manipulation;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+header { text-align: center; margin-bottom: 10px; }
+h1 { font-size: 1.6rem; letter-spacing: 2px; }
+.highlight { color: var(--neon-blue); }
+
+#status-message {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    min-height: 1.2rem;
+}
+
+.draft-container { width: 100%; max-width: 900px; }
+.preban-zone { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+
+.character-pool {
+    background: var(--card-bg);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 6px;
+}
+
+.hero-card { background: #252b33; border-radius: 4px; overflow: hidden; cursor: pointer; }
+.hero-card img { width: 100%; height: auto; display: block; }
+.hero-name, .hero-card div { display: none !important; }
+
+.teams-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.team-container { flex: 1; }
+.team-container h3 { font-size: 0.7rem; margin-bottom: 8px; text-align: center; }
+#label-red { color: var(--neon-pink); }
+#label-blue { color: var(--neon-blue); }
+
+.team-row { display: flex; flex-direction: row; gap: 4px; justify-content: center; }
+
+.slot {
+    width: 50px;
+    height: 50px;
+    background: #14181f;
     border-radius: 4px;
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-/* Style de l'image à l'intérieur */
-.hero-img-fix {
-    width: 100%;
-    height: 150%; /* On dépasse volontairement vers le bas */
-    object-fit: cover;
-    object-position: top; /* On cale sur le visage */
-    position: absolute;
-    top: 0;
-    pointer-events: none; /* Évite les bugs de clic */
-}
-
-/* Grille des personnages pour qu'ils ne soient pas les uns sous les autres */
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
     justify-content: center;
-    max-width: 800px;
+    overflow: hidden;
+    position: relative;
+    transition: 0.2s;
+}
+
+.slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+/* STYLE DU SLOT PROTECT (DORÉ) */
+.protect-slot {
+    border: 2px solid var(--protect-gold) !important;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    background: #1a1a00;
+}
+
+/* SYSTÈME DE BAN FINAL */
+.slot.banned img {
+    filter: grayscale(100%) brightness(30%);
+}
+
+.slot.banned::after {
+    content: "✕";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff004c;
+    font-size: 35px;
+    font-weight: bold;
+    text-shadow: 0 0 8px black;
+    pointer-events: none;
+}
+
+#reset-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 25px;
+    background: transparent;
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+@media (max-width: 600px) {
+    .grid { grid-template-columns: repeat(6, 1fr); }
+    .slot { width: 34px; height: 34px; }
+    .slot.banned::after { font-size: 24px; }
 }
