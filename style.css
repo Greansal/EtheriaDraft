@@ -1,5 +1,5 @@
+/* BASE & RESET */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
     background-color: #0b0e14;
     color: white;
@@ -10,29 +10,30 @@ body {
     padding: 20px;
 }
 
-header { margin-bottom: 20px; text-align: center; }
+header { text-align: center; margin-bottom: 20px; }
 .highlight { color: #00f2ff; }
 
-/* GRILLE */
+/* GRILLE DE SÉLECTION */
 .grid {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    max-width: 900px;
+    max-width: 950px;
     margin: 20px auto;
 }
 
-/* CARDS & SLOTS */
 .hero-card, .slot {
-    width: 70px;
-    height: auto;
-    min-height: 95px;
+    width: 75px; 
+    height: auto; 
+    min-height: 100px;
     background-color: #1a1f26;
     border: 1px solid #333;
     border-radius: 4px;
     overflow: hidden;
+    display: flex;
     cursor: pointer;
+    position: relative;
 }
 
 .hero-card img, .slot img {
@@ -41,41 +42,49 @@ header { margin-bottom: 20px; text-align: center; }
     display: block;
 }
 
-/* ZONE EQUIPES FACE A FACE */
+.hero-name { display: none; }
+
+/* ANIMATIONS DE SURBRILLANCE (Indicateur de tour) */
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 5px #ff007a; border-color: #ff007a; }
+    50% { box-shadow: 0 0 20px #ff007a; border-color: #ff007a; }
+    100% { box-shadow: 0 0 5px #ff007a; border-color: #ff007a; }
+}
+
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 5px #00f2ff; border-color: #00f2ff; }
+    50% { box-shadow: 0 0 20px #00f2ff; border-color: #00f2ff; }
+    100% { box-shadow: 0 0 5px #00f2ff; border-color: #00f2ff; }
+}
+
+.glow-red { animation: pulse-red 1.5s infinite; border-width: 2px !important; }
+.glow-blue { animation: pulse-blue 1.5s infinite; border-width: 2px !important; }
+
+/* EQUIPES FACE À FACE */
 .teams-area {
     display: flex;
+    flex-direction: row; 
     justify-content: center;
-    gap: 80px; /* Espace entre les deux blocs */
+    gap: 60px;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
-.team-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+.team-container { display: flex; flex-direction: column; align-items: center; }
+.team-row { display: flex; flex-direction: row; gap: 8px; margin-top: 10px; }
 
-.team-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.label-red { color: #ff007a; }
-.label-blue { color: #00f2ff; }
-
-/* SPECIAL SLOTS */
-.preban-zone { display: flex; gap: 15px; margin-bottom: 20px; }
-.preban-zone .slot { border: 2px solid #ff004c; }
+/* ÉTATS */
+.preban-zone { display: flex; gap: 10px; margin-bottom: 20px; }
+.active-preban { border: 2px solid #ff004c !important; }
 .slot.gold { border: 2px solid #ffd700; }
 .slot.banned img { filter: grayscale(100%) brightness(30%); }
 
 #reset-btn {
-    margin-top: 40px;
-    padding: 10px 25px;
+    margin-top: 30px;
+    padding: 12px 24px;
     background: transparent;
     border: 2px solid #00f2ff;
     color: #00f2ff;
     cursor: pointer;
+    font-weight: bold;
 }
