@@ -54,8 +54,16 @@ function highlightNextSlot() {
 }
 
 function resetDraft() {
-    initDraft();
+    // Recharge la page pour tout remettre à zéro proprement
+    location.reload();
+}
+
+// Assure-toi que ta fonction selectHero utilise bien les IDs red-1, blue-1 etc.
+function selectHero(heroName) {
+    // ... ta logique de draft ici ...
+    console.log("Héros sélectionné : " + heroName);
 }
 
 // Lancement au premier chargement
 window.onload = initDraft;
+
