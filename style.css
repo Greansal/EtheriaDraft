@@ -3,6 +3,7 @@
     --card-bg: #1a1f26;
     --neon-blue: #00f2ff;
     --neon-pink: #ff007a;
+    --protect-gold: #ffd700;
     --text-color: #ffffff;
 }
 
@@ -24,11 +25,7 @@ body {
     padding: 10px;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
+header { text-align: center; margin-bottom: 10px; }
 h1 { font-size: 1.6rem; letter-spacing: 2px; }
 .highlight { color: var(--neon-blue); }
 
@@ -39,19 +36,10 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
     text-transform: uppercase;
 }
 
-.draft-container {
-    width: 100%;
-    max-width: 900px;
-}
+.draft-container { width: 100%; max-width: 900px; }
 
-.preban-zone {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
-}
+.preban-zone { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
 
-/* GRILLE SANS NOMS */
 .character-pool {
     background: var(--card-bg);
     padding: 10px;
@@ -65,53 +53,25 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
     gap: 6px;
 }
 
-.hero-card {
-    background: #252b33;
-    border-radius: 4px;
-    overflow: hidden;
-    cursor: pointer;
-}
+.hero-card { background: #252b33; border-radius: 4px; overflow: hidden; cursor: pointer; }
+.hero-card img { width: 100%; height: auto; display: block; }
+.hero-name { display: none !important; }
 
-.hero-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Suppression forcée des noms et textes sous images */
-.hero-name, .hero-card div, span[style*="font-size"] { 
-    display: none !important; 
-}
-
-/* EQUIPES TOUJOURS EN LIGNE */
 .teams-area {
     display: flex;
-    flex-direction: row; /* Force l'alignement horizontal */
+    flex-direction: row;
     justify-content: space-between;
     width: 100%;
     margin-top: 15px;
     gap: 10px;
 }
 
-.team-container {
-    flex: 1;
-}
-
-.team-container h3 {
-    font-size: 0.7rem;
-    margin-bottom: 8px;
-    text-align: center;
-}
-
+.team-container { flex: 1; }
+.team-container h3 { font-size: 0.7rem; margin-bottom: 8px; text-align: center; }
 #label-red { color: var(--neon-pink); }
 #label-blue { color: var(--neon-blue); }
 
-.team-row {
-    display: flex;
-    flex-direction: row; /* Force l'alignement horizontal */
-    gap: 4px;
-    justify-content: center;
-}
+.team-row { display: flex; flex-direction: row; gap: 4px; justify-content: center; }
 
 .slot {
     width: 50px;
@@ -123,16 +83,36 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    color: #444;
-    font-size: 12px;
+    position: relative;
+    transition: 0.3s;
 }
 
-/* FOCUS SUR LE HAUT DE L'IMAGE (LA TÊTE) */
 .slot img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top; /* Indispensable pour voir les visages */
+    object-position: top;
+}
+
+/* STYLE SLOT PROTECT (Slot 3) */
+.protect-slot {
+    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.3);
+    background: linear-gradient(45deg, #14181f, #1a1a00);
+}
+
+/* FILTRE BAN FINAL (Barré et Grisé) */
+.slot.banned img {
+    filter: grayscale(100%) brightness(40%);
+}
+
+.slot.banned::after {
+    content: "✕";
+    position: absolute;
+    color: #ff004c;
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 0 0 10px black;
+    z-index: 10;
 }
 
 #reset-btn {
@@ -148,9 +128,8 @@ h1 { font-size: 1.6rem; letter-spacing: 2px; }
     text-transform: uppercase;
 }
 
-/* ADAPTATION MOBILE LÉGÈRE */
 @media (max-width: 600px) {
     .grid { grid-template-columns: repeat(6, 1fr); }
-    .slot { width: 34px; height: 34px; font-size: 10px; }
-    .teams-area { gap: 5px; }
+    .slot { width: 34px; height: 34px; }
+    .slot.banned::after { font-size: 25px; }
 }
