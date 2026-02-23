@@ -1,0 +1,37 @@
+/* Verrouillage des dimensions pour empêcher l'empilement vertical */
+.slot, .hero-card, .active-preban {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 4px;
+    overflow: hidden !important; /* Coupe tout ce qui dépasse */
+    position: relative;
+    background-color: #1a1f26;
+    display: inline-block; /* Aligne les éléments horizontalement */
+}
+
+/* On utilise une div pour l'image pour un contrôle total du zoom */
+.hero-view {
+    width: 100%;
+    height: 100%;
+    background-size: 150%; /* ZOOM : agrandit pour cacher les textes */
+    background-position: top center; /* CADRAGE : garde la tête du perso */
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Fix pour la grille des personnages */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 750px;
+    margin: 20px auto;
+}
+
+/* Ban Final */
+.slot.banned .hero-view {
+    filter: grayscale(100%) brightness(30%);
+}
