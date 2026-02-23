@@ -1,8 +1,4 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     background-color: #0b0e14;
@@ -14,53 +10,60 @@ body {
     padding: 20px;
 }
 
-/* LA GRILLE : S'adapte à la taille des images */
+h1 { margin-bottom: 20px; letter-spacing: 2px; }
+
+/* Grille flexible qui respecte la largeur de tes images */
 .grid {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
     max-width: 1200px;
-    margin: 20px 0;
+    margin-bottom: 40px;
 }
 
-/* LES CASES : C'est ici qu'on gère le "Crop" */
+/* LA RÈGLE D'OR : Le cadre s'adapte à la largeur de l'image mais coupe la hauteur */
 .hero-card, .slot {
-    /* On laisse la largeur s'adapter à l'image */
-    width: auto; 
-    /* ON FORCE LA HAUTEUR : Ajuste ce chiffre (ex: 80px ou 100px) 
-       pour couper pile là où ton texte commence */
-    height: 85px; 
-    
+    width: auto; /* Largeur automatique selon l'image */
+    height: 90px; /* AJUSTE CE CHIFFRE pour couper le texte en bas (ex: 80px, 100px) */
     background-color: #1a1f26;
-    border-radius: 4px;
-    overflow: hidden; /* COUPE LE TEXTE DU BAS */
-    display: flex;
-    align-items: flex-start; /* Garde le haut de l'image (visage) */
     border: 1px solid #333;
+    border-radius: 4px;
+    overflow: hidden; /* Cache tout ce qui dépasse des 90px de haut */
+    display: flex;
+    align-items: flex-start;
 }
 
-/* L'IMAGE : Taille originale */
+/* L'image garde ses proportions réelles */
 .hero-card img, .slot img {
-    width: auto; /* Garde la largeur réelle */
-    height: auto; /* Garde la hauteur réelle */
+    height: auto; 
+    width: auto;
     display: block;
 }
 
-/* EQUIPES : Alignement horizontal */
 .teams-container {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
-.slots-row {
-    display: flex;
-    gap: 10px;
-}
+.slots-row { display: flex; gap: 10px; }
 
-/* SPECIAL */
+.team h2 { font-size: 1.2rem; margin-bottom: 10px; text-align: center; }
+.red h2 { color: #ff007a; }
+.blue h2 { color: #00f2ff; }
+
 [id$="-3"] { border: 2px solid #ffd700; }
-.active-preban { border: 2px solid #ff004c; min-width: 65px; }
+.active-preban { border: 2px solid #ff004c; min-width: 60px; height: 60px; }
 .slot.banned img { filter: grayscale(100%) brightness(30%); }
+
+button {
+    margin-top: 40px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid #00f2ff;
+    color: #00f2ff;
+    cursor: pointer;
+    text-transform: uppercase;
+}
