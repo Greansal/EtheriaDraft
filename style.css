@@ -1,80 +1,80 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+let currentStep = 0;
+let isBanPhase = false;
+let activePrebanSlot = null;
+let draftOrder = [];
 
-body {
-    background-color: #0b0e14;
-    color: white;
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    min-height: 100vh;
+window.onload = function() {
+    setupNewDraft();
+    document.getElementById('preban-1').onclick = () => activePrebanSlot = 'preban-1';
+    document.getElementById('preban-2').onclick = () => activePrebanSlot = 'preban-2';
+};
+
+function setupNewDraft() {
+    currentStep = 0;
+    isBanPhase = false;
+    const startingTeam = Math.random() < 0.5 ? "red" : "blue";
+    const secondTeam = (startingTeam === "red") ? "blue" : "red";
+
+    draftOrder = [
+        `${startingTeam}-1`, `${secondTeam}-1`, `${secondTeam}-2`,
+        `${startingTeam}-2`, `${startingTeam}-3`, `${secondTeam}-3`,
+        `${secondTeam}-4`, `${startingTeam}-4`, `${startingTeam}-5`, `${secondTeam}-5`
+    ];
+
+    updateStatus();
+    setTimeout(highlightNextSlot, 100);
 }
 
-header { text-align: center; margin-top: 20px; }
-header h1 { font-size: 3rem; }
-.highlight { color: #00f2ff; }
+function selectHero(heroName) {
+    if (isBanPhase) return;
+    const imgPath = `images/${heroName}.png`;
+    const heroHTML = `<img src="${imgPath}">`;
 
-#status-message {
-    margin-top: 30px; 
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 1.2rem;
+    if (activePrebanSlot) {
+        document.getElementById(activePrebanSlot).innerHTML = heroHTML;
+        activePrebanSlot = null;
+        return;
+    }
+
+    if (currentStep < draftOrder.length) {
+        const targetId = draftOrder[currentStep];
+        const slot = document.getElementById(targetId);
+        slot.innerHTML = heroHTML;
+        slot.classList.remove('glow-red', 'glow-blue');
+        
+        slot.onclick = function() {
+            if (isBanPhase) this.classList.toggle('banned');
+        };
+
+        currentStep++;
+        updateStatus();
+        highlightNextSlot();
+    }
 }
 
-.preban-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0 40px 0;
+function highlightNextSlot() {
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('glow-red', 'glow-blue'));
+    if (currentStep < draftOrder.length) {
+        const nextId = draftOrder[currentStep];
+        const nextSlot = document.getElementById(nextId);
+        if (nextSlot) {
+            nextSlot.classList.add(nextId.includes('red') ? 'glow-red' : 'glow-blue');
+        }
+    }
 }
 
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    max-width: 900px;
-    margin-bottom: 40px;
+function updateStatus() {
+    const msg = document.getElementById('status-message');
+    if (currentStep < draftOrder.length) {
+        const nextId = draftOrder[currentStep];
+        const isRed = nextId.includes('red');
+        msg.innerHTML = `<span style="color:white">TOUR : </span><span style="color:${isRed ? '#ff007a' : '#00f2ff'}">ÉQUIPE ${isRed ? 'ROUGE' : 'BLEUE'}</span>`;
+    } else {
+        isBanPhase = true;
+        msg.innerHTML = "<span style='color:#ffd700'>BAN FINAL : CLIQUEZ SUR LES ENNEMIS</span>";
+    }
 }
 
-.hero-card, .slot {
-    width: 75px; 
-    height: 105px;
-    background-color: #1a1f26;
-    border: 1px solid #333;
-    border-radius: 4px;
-    overflow: hidden;
-    cursor: pointer;
+function resetDraft() {
+    location.reload();
 }
-
-.hero-card img, .slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.teams-area { display: flex; justify-content: center; gap: 50px; width: 100%; }
-.team-container { text-align: center; }
-.team-row { display: flex; gap: 8px; margin-top: 15px; }
-
-.label-red { color: #ff007a; }
-.label-blue { color: #00f2ff; }
-
-.active-preban { border: 2px solid #ff004c !important; }
-.slot.gold { border: 2px solid #ffd700; }
-.slot.banned img { filter: grayscale(100%) brightness(30%); }
-.slot.banned { border: 2px solid red !important; }
-
-@keyframes glow-red { 50% { box-shadow: 0 0 15px #ff007a; border-color: #ff007a; } }
-@keyframes glow-blue { 50% { box-shadow: 0 0 15px #00f2ff; border-color: #00f2ff; } }
-.glow-red { animation: glow-red 1.5s infinite; }
-.glow-blue { animation: glow-blue 1.5s infinite; }
-
-#reset-btn {
-    margin: 50px auto;
-    padding: 12px 30px;
-    background: transparent;
-    border: 2px solid #00f2ff;
-    color: #00f2ff;
-    cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-#reset-btn:hover { background: #00f2ff; color: #0b0e14; }
