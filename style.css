@@ -1,5 +1,6 @@
-/* BASE */
+/* BASE & RESET */
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
     background-color: #0b0e14;
     color: white;
@@ -10,17 +11,20 @@ body {
     padding: 20px;
 }
 
-/* GRILLE : Tes persos de sélection */
+header { text-align: center; margin-bottom: 20px; }
+.highlight { color: #00f2ff; }
+
+/* GRILLE DE SÉLECTION */
 .grid {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    max-width: 900px;
+    max-width: 950px;
     margin: 20px auto;
 }
 
-/* LES CASES : Largeur fixe, Hauteur automatique */
+/* TAILLE RÉELLE : On fixe la largeur, la hauteur suit l'image */
 .hero-card, .slot {
     width: 75px; 
     height: auto; 
@@ -29,24 +33,27 @@ body {
     border-radius: 4px;
     overflow: hidden;
     display: flex;
+    cursor: pointer;
+    position: relative;
+    min-height: 100px; /* Évite que les cases vides soient invisibles */
 }
 
-/* L'IMAGE : Elle commande la taille de la case */
+/* L'IMAGE : Taille réelle proportionnelle */
 .hero-card img, .slot img {
     width: 100%;
-    height: auto; /* Affiche l'image ENTIÈRE sans couper */
+    height: auto;
     display: block;
 }
 
-/* Masquer le texte "Doki", "aya", etc. sous les images */
+/* Masquer le texte sous les images dans la grille */
 .hero-name { display: none; }
 
-/* EQUIPES : Alignement Horizontal */
+/* EQUIPES : Alignement Horizontal (Face à face) */
 .teams-area {
     display: flex;
-    flex-direction: row; /* Force l'alignement côte à côte */
+    flex-direction: row; 
     justify-content: center;
-    gap: 50px;
+    gap: 60px;
     width: 100%;
     margin-top: 30px;
 }
@@ -59,21 +66,25 @@ body {
 
 .team-row {
     display: flex;
-    flex-direction: row; /* Les slots sont côte à côte */
+    flex-direction: row; 
     gap: 8px;
+    margin-top: 10px;
 }
 
-/* ETATS */
+/* ZONES SPÉCIALES */
 .preban-zone { display: flex; gap: 10px; margin-bottom: 20px; }
-.active-preban { border: 2px solid #ff004c; min-height: 80px; width: 75px; }
-#red-3, #blue-3 { border: 2px solid #ffd700; }
+.active-preban { border: 2px solid #ff004c; }
+#red-3, #blue-3 { border: 2px solid #ffd700; } /* Slot 3 doré */
+
+/* BAN FINAL */
 .slot.banned img { filter: grayscale(100%) brightness(30%); }
 
 #reset-btn {
     margin-top: 30px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     background: transparent;
     border: 2px solid #00f2ff;
     color: #00f2ff;
     cursor: pointer;
+    font-weight: bold;
 }
