@@ -10,7 +10,6 @@ function initDraft() {
     activePrebanSlot = null;
     const random = Math.random();
     
-    // Détermination de l'ordre au hasard
     if (random < 0.5) {
         draftOrder = redFirst;
         document.getElementById('status-message').innerHTML = "PHASE : PRE-BAN | <span style='color:#ff007a'>ROUGE COMMENCERA</span>";
@@ -19,40 +18,76 @@ function initDraft() {
         document.getElementById('status-message').innerHTML = "PHASE : PRE-BAN | <span style='color:#00f2ff'>BLEU COMMENCERA</span>";
     }
 
-    // Initialisation de tous les slots
+    // Reset complet des slots
     document.querySelectorAll('.slot').forEach(slot => {
         slot.classList.remove('active');
         slot.style.boxShadow = "none";
-        slot.innerHTML = slot.id.split('-')[1]; // Affiche le numéro par défaut
+        slot.style.backgroundColor = "#14181f";
+        slot.innerHTML = slot.id.split('-')[1];
 
         if (slot.classList.contains('active-preban')) {
             slot.style.border = "2px solid #ff004c";
-            // On force l'activation du clic pour le preban
-            slot.onclick = function(e) { 
-                e.stopPropagation();
-                selectPrebanSlot(slot.id); 
-            };
+            // On utilise une méthode plus robuste pour le clic
+            slot.onmousedown = function() { selectPrebanSlot(slot.id); };
         } else {
             slot.style.border = "2px dashed #333";
-            slot.onclick = null; 
+            slot.onmousedown = null;
         }
     });
 }
 
 function selectPrebanSlot(slotId) {
-    // Désélectionne l'autre slot de preban s'il y en avait un
-    document.querySelectorAll('.active-preban').forEach(s => s.style.boxShadow = "none");
+    // On nettoie les anciens choix
+    document.querySelectorAll('.active-preban').forEach(s => {
+        s.style.boxShadow = "none";
+        s.style.backgroundColor = "#14181f";
+    });
     
     activePrebanSlot = slotId;
-    document.getElementById(slotId).style.boxShadow = "0 0 20px #ff004c";
+    const el = document.getElementById(slotId);
+    el.style.boxShadow = "0 0 20px #ff004c";
+    el.style.backgroundColor = "#300b16"; // Un petit fond rouge pour montrer l'activation
     document.getElementById('status-message').innerText = "CLIQUE SUR UN HÉROS POUR LE BAN";
 }
 
 function selectHero(heroName) {
-    // CAS 1 : On remplit un Pre-ban
     if (activePrebanSlot) {
         const slot = document.getElementById(activePrebanSlot);
         slot.innerHTML = `<img src="images/${heroName}.png" style="width:100%; height:100%; object-fit:cover;">`;
         slot.style.boxShadow = "none";
-        activePrebanSlot = null; // On libère le slot après sélection
-        document.getElementById('status-message').innerText = "CLIQUE SUR LE 2ÈME BAN OU COMM
+        slot.style.backgroundColor = "#14181f";
+        activePrebanSlot = null;
+        document.getElementById('status-message').innerText = "BAN EFFECTUÉ ! CONTINUE OU DRAFTE";
+        highlightNextSlot();
+        return;
+    }
+
+    if (currentStep >= draftOrder.length) return;
+    
+    const targetId = draftOrder[currentStep];
+    const slot = document.getElementById(targetId);
+    slot.innerHTML = `<img src="images/${heroName}.png" style="width:100%; height:100%; object-fit:cover;">`;
+    slot.classList.add('active');
+    
+    currentStep++;
+    highlightNextSlot();
+}
+
+function highlightNextSlot() {
+    document.querySelectorAll('.slot').forEach(s => {
+        if (!s.classList.contains('active-preban')) s.style.border = "2px dashed #333";
+    });
+    
+    if (currentStep < draftOrder.length) {
+        const nextId = draftOrder[currentStep];
+        document.getElementById(nextId).style.border = "2px solid white";
+        const team = nextId.includes('red') ? "ROUGE" : "BLEUE";
+        const color = nextId.includes('red') ? "#ff007a" : "#00f2ff";
+        document.getElementById('status-message').innerHTML = `TOUR : <span style="color:${color}">${team}</span>`;
+    } else {
+        document.getElementById('status-message').innerText = "DRAFT TERMINÉE !";
+    }
+}
+
+function resetDraft() { initDraft(); }
+window.onload = initDraft;
