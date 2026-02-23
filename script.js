@@ -5,6 +5,8 @@ let draftOrder = [];
 
 window.onload = function() {
     setupNewDraft();
+    
+    // Setup clics Pre-ban
     document.getElementById('preban-1').onclick = () => activePrebanSlot = 'preban-1';
     document.getElementById('preban-2').onclick = () => activePrebanSlot = 'preban-2';
 };
@@ -12,13 +14,19 @@ window.onload = function() {
 function setupNewDraft() {
     currentStep = 0;
     isBanPhase = false;
+
+    // Aléatoire : qui commence ?
     const startingTeam = Math.random() < 0.5 ? "red" : "blue";
     const secondTeam = (startingTeam === "red") ? "blue" : "red";
 
+    // Ordre : 1 - 2 - 2 - 2 - 2 - 1
     draftOrder = [
-        `${startingTeam}-1`, `${secondTeam}-1`, `${secondTeam}-2`,
-        `${startingTeam}-2`, `${startingTeam}-3`, `${secondTeam}-3`,
-        `${secondTeam}-4`, `${startingTeam}-4`, `${startingTeam}-5`, `${secondTeam}-5`
+        `${startingTeam}-1`, 
+        `${secondTeam}-1`, `${secondTeam}-2`,
+        `${startingTeam}-2`, `${startingTeam}-3`,
+        `${secondTeam}-3`, `${secondTeam}-4`,
+        `${startingTeam}-4`, `${startingTeam}-5`,
+        `${secondTeam}-5`
     ];
 
     updateStatus();
@@ -27,6 +35,7 @@ function setupNewDraft() {
 
 function selectHero(heroName) {
     if (isBanPhase) return;
+
     const imgPath = `images/${heroName}.png`;
     const heroHTML = `<img src="${imgPath}">`;
 
@@ -39,9 +48,17 @@ function selectHero(heroName) {
     if (currentStep < draftOrder.length) {
         const targetId = draftOrder[currentStep];
         const slot = document.getElementById(targetId);
+        
         slot.innerHTML = heroHTML;
         slot.classList.remove('glow-red', 'glow-blue');
-        
+
+        // On attache la fonction de ban au clic sur le slot rempli
+        slot.onclick = function() {
+            if (isBanPhase) {
+                this.classList.toggle('banned');
+            }
+        };
+
         currentStep++;
         updateStatus();
         highlightNextSlot();
