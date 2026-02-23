@@ -98,16 +98,37 @@ header h1 { font-size: 1.8rem; }
 .glow-red { animation: glow-red 1.5s infinite; }
 .glow-blue { animation: glow-blue 1.5s infinite; }
 
-/* --- FIN DES ANIMATIONS --- */
-
-/* Bouton Reset : Plus discret */
 #reset-btn {
-    margin: 15px auto;
-    padding: 8px 20px;
+    margin-top: 50px; /* Plus d'espace sous les équipes */
+    margin-bottom: 20px;
+    padding: 12px 30px;
     background: transparent;
-    border: 2px solid #00f2ff;
-    color: #00f2ff;
-    cursor: pointer;
+    border: 2px solid #00f2ff; /* Contour bleu */
+    color: #00f2ff; /* Texte bleu */
     font-weight: bold;
-    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 242, 255, 0.2);
 }
+
+#reset-btn:hover {
+    background: rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+    transform: scale(1.05);
+}
+
+/* --- ANIMATION PRE-BAN --- */
+@keyframes pulse-preban {
+    0% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
+    50% { box-shadow: 0 0 20px #ff004c; border-color: #ff4d88; }
+    100% { box-shadow: 0 0 5px #ff004c; border-color: #ff004c; }
+}
+
+/* Elle ne s'applique QUE si la classe est présente */
+.active-preban {
+    border: 2px solid #ff004c !important;
+    animation: pulse-preban 1s infinite ease-in-out;
+}
+
