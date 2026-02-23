@@ -4,33 +4,27 @@ let activePrebanSlot = null;
 
 const draftOrder = ["red-1", "blue-1", "blue-2", "red-2", "red-3", "blue-3", "blue-4", "red-4", "red-5", "blue-5"];
 
-// Initialisation au chargement de la page
-window.onload = function() {
-    // 1. On transforme la grille pour utiliser les images en background (cadrage parfait)
-    const cards = document.querySelectorAll('.hero-card');
-    cards.forEach(card => {
-        const heroName = card.getAttribute('onclick').match(/'([^']+)'/)[1];
-        const imgPath = `images/${heroName}.png`;
-        card.innerHTML = `<div class="hero-view" style="background-image: url('${imgPath}')"></div>`;
-    });
-
-    // 2. On rend les slots de pre-ban sélectionnables
+// Gestion des clics sur les slots de pre-ban
+document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('preban-1').onclick = () => activePrebanSlot = 'preban-1';
     document.getElementById('preban-2').onclick = () => activePrebanSlot = 'preban-2';
-};
+});
 
 function selectHero(heroName) {
     if (isBanPhase) return;
 
+    // On utilise une balise IMG pour voir l'image ENTIÈRE
     const imgPath = `images/${heroName}.png`;
-    const heroHTML = `<div class="hero-view" style="background-image: url('${imgPath}')"></div>`;
+    const heroHTML = `<img src="${imgPath}" alt="${heroName}">`;
 
+    // 1. Pre-bans
     if (activePrebanSlot) {
         document.getElementById(activePrebanSlot).innerHTML = heroHTML;
         activePrebanSlot = null;
         return;
     }
 
+    // 2. Draft
     if (currentStep < draftOrder.length) {
         const targetId = draftOrder[currentStep];
         const slot = document.getElementById(targetId);
@@ -60,4 +54,6 @@ function updateStatusDisplay() {
     }
 }
 
-function resetDraft() { location.reload(); }
+function resetDraft() {
+    location.reload();
+}
