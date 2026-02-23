@@ -1,3 +1,6 @@
+/* Style Global : On réduit les marges pour gagner de la place en hauteur */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
     background-color: #0b0e14;
     color: white;
@@ -5,44 +8,90 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px; /* Réduit de 40px à 10px */
+    padding: 10px; /* Moins d'espace en haut et en bas */
     min-height: 100vh;
-    overflow-x: hidden; /* Évite le scroll horizontal */
+    overflow-x: hidden;
 }
 
-header h1 { 
-    font-size: 2rem; /* Réduit de 3rem à 2rem */
-}
+/* Header : On compacte le titre */
+header { text-align: center; margin-bottom: 5px; }
+header h1 { font-size: 1.8rem; } /* Titre plus petit */
+.highlight { color: #00f2ff; }
 
 #status-message {
-    margin-top: 10px; /* Réduit de 30px à 10px */
-    font-size: 1rem;
+    margin-top: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
 }
 
+/* Pré-bans : On les rapproche du titre */
 .preban-container {
-    margin: 15px 0; /* Réduit les marges */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 0;
 }
 
-/* RÉDUCTION DE LA TAILLE DES SLOTS */
+/* LA GRILLE : C'est ici qu'on gagne le plus de place */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* Espace réduit entre les héros */
+    justify-content: center;
+    max-width: 800px; 
+    margin-bottom: 15px;
+}
+
+/* Taille des cartes : On passe à une taille "compacte" */
 .hero-card, .slot {
-    width: 60px;  /* Réduit de 75px/85px à 60px */
-    height: 85px; /* Réduit de 115px à 85px */
+    width: 55px;  /* Largeur réduite */
+    height: 75px; /* Hauteur réduite */
     background-color: #1a1f26;
     border: 1px solid #333;
     border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.grid {
-    max-width: 800px; /* Plus étroit pour forcer les lignes */
-    margin-bottom: 20px; /* Réduit de 50px à 20px */
-    gap: 5px; /* Écarte moins les cartes */
+.hero-card img, .slot img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
 }
 
-.teams-area {
-    gap: 30px; /* Rapproche les deux équipes */
+/* Les Équipes : Alignées pour ne pas manger d'espace vertical */
+.teams-area { 
+    display: flex; 
+    justify-content: center; 
+    gap: 40px; 
+    width: 100%; 
 }
+.team-container { text-align: center; }
+.team-row { display: flex; gap: 5px; margin-top: 5px; }
 
+.label-red { color: #ff007a; font-size: 0.8rem; }
+.label-blue { color: #00f2ff; font-size: 0.8rem; }
+
+/* États et Animations */
+.active-preban { border: 2px solid #ff004c !important; }
+.slot.gold { border: 2px solid #ffd700; }
+.slot.banned img { filter: grayscale(100%) brightness(30%); }
+
+@keyframes glow-red { 50% { box-shadow: 0 0 10px #ff007a; border-color: #ff007a; } }
+@keyframes glow-blue { 50% { box-shadow: 0 0 10px #00f2ff; border-color: #00f2ff; } }
+.glow-red { animation: glow-red 1.5s infinite; }
+.glow-blue { animation: glow-blue 1.5s infinite; }
+
+/* Bouton Reset : Plus discret */
 #reset-btn {
-    margin: 20px auto; /* Réduit la marge du bas */
-    padding: 10px 25px;
+    margin: 15px auto;
+    padding: 8px 20px;
+    background: transparent;
+    border: 2px solid #00f2ff;
+    color: #00f2ff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
 }
