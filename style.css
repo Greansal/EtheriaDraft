@@ -138,3 +138,35 @@ header {
 .hero-name {
     display: none !important;
 }
+/* Adaptations pour Mobile (Android/iOS) */
+@media (max-width: 768px) {
+    /* On réduit la taille des cases pour qu'elles rentrent */
+    .hero-card, .slot {
+        width: 65px;
+        height: 65px;
+    }
+
+    /* On permet aux équipes de se mettre l'une sous l'autre si besoin */
+    .teams-area {
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+
+    /* On permet aux lignes de slots (1 à 5) de revenir à la ligne */
+    .team-row {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    /* On ajuste la grille des personnages */
+    .grid {
+        gap: 8px;
+    }
+
+    /* On réduit la taille des textes */
+    h1 { font-size: 1.5rem; }
+    h3 { font-size: 1rem; }
+}
+
