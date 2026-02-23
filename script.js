@@ -1,42 +1,61 @@
 let currentStep = 0;
-const statusText = document.getElementById('status-message');
+let draftOrder = [];
 
-// Ordre : 2 Prebans, puis alternance Rouge/Bleu pour 5 persos chacun
-const steps = [
-    { id: 'preban-1', label: 'PREBAN 2' },
-    { id: 'preban-2', label: 'PICK ROUGE 1' },
-    { team: 'red', slotIndex: 0, label: 'PICK BLEU 1' },
-    { team: 'blue', slotIndex: 0, label: 'PICK ROUGE 2' },
-    { team: 'red', slotIndex: 1, label: 'PICK BLEU 2' },
-    { team: 'blue', slotIndex: 1, label: 'PICK ROUGE 3' },
-    { team: 'red', slotIndex: 2, label: 'PICK BLEU 3' },
-    { team: 'blue', slotIndex: 2, label: 'PICK ROUGE 4' },
-    { team: 'red', slotIndex: 3, label: 'PICK BLEU 4' },
-    { team: 'blue', slotIndex: 3, label: 'PICK ROUGE 5' },
-    { team: 'red', slotIndex: 4, label: 'PICK BLEU 5' },
-    { team: 'blue', slotIndex: 4, label: 'DRAFT TERMINÉ' }
-];
+const redFirst = ["red-1", "blue-1", "blue-2", "red-2", "red-3", "blue-3", "blue-4", "red-4", "red-5", "blue-5"];
+const blueFirst = ["blue-1", "red-1", "red-2", "blue-2", "blue-3", "red-3", "red-4", "blue-4", "blue-5", "red-5"];
 
-function selectHero(name) {
-    if (currentStep >= steps.length) return;
-
-    let targetSlot;
-    const currentInfo = steps[currentStep];
-
-    if (currentStep < 2) {
-        // Phase Preban
-        targetSlot = document.getElementById(currentInfo.id);
+function initDraft() {
+    currentStep = 0;
+    // Tirage au sort du premier joueur
+    const random = Math.random();
+    if (random < 0.5) {
+        draftOrder = redFirst;
+        document.getElementById('status-message').innerHTML = "PHASE : DRAFT - <span style='color:#ff007a'>ROUGE COMMENCE</span>";
     } else {
-        // Phase Pick Alterné
-        const teamDiv = currentInfo.team === 'red' ? 'team-red' : 'team-blue';
-        targetSlot = document.getElementById(teamDiv).children[currentInfo.slotIndex];
+        draftOrder = blueFirst;
+        document.getElementById('status-message').innerHTML = "PHASE : DRAFT - <span style='color:#00f2ff'>BLEU COMMENCE</span>";
     }
+    
+    // Nettoyage des slots
+    document.querySelectorAll('.slot').forEach(slot => {
+        // On ne nettoie pas les prebans (on garde la liberté manuelle)
+        if (!slot.classList.contains('active-preban')) {
+            slot.innerHTML = slot.id.split('-')[1]; // Remet le numéro (1, 2, 3...)
+            slot.classList.remove('active');
+        }
+    });
+    highlightNextSlot();
+}
 
-    if (targetSlot) {
-        targetSlot.innerHTML = `<img src="images/${name}.png">`;
-        targetSlot.style.borderStyle = "solid";
-        
-        statusText.innerText = "PHASE : " + currentInfo.label;
-        currentStep++;
+function selectHero(heroName) {
+    if (currentStep >= draftOrder.length) return;
+
+    const targetId = draftOrder[currentStep];
+    const slot = document.getElementById(targetId);
+    
+    slot.innerHTML = `<img src="images/${heroName}.png">`;
+    slot.classList.add('active');
+
+    currentStep++;
+    highlightNextSlot();
+}
+
+function highlightNextSlot() {
+    document.querySelectorAll('.slot').forEach(s => s.style.border = "2px dashed #333");
+    
+    if (currentStep < draftOrder.length) {
+        const nextId = draftOrder[currentStep];
+        const nextSlot = document.getElementById(nextId);
+        // Fait briller la case en blanc pour montrer où le perso va atterrir
+        nextSlot.style.border = "2px solid white";
+    } else {
+        document.getElementById('status-message').innerText = "DRAFT TERMINÉE !";
     }
 }
+
+function resetDraft() {
+    initDraft();
+}
+
+// Lancement au premier chargement
+window.onload = initDraft;
