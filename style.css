@@ -1,6 +1,5 @@
-/* RESET COMPLET */
+/* BASE */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
     background-color: #0b0e14;
     color: white;
@@ -11,50 +10,43 @@ body {
     padding: 20px;
 }
 
-header { text-align: center; margin-bottom: 20px; }
-.highlight { color: #00f2ff; }
-
-/* GRILLE DE SÉLECTION */
+/* GRILLE : Tes persos de sélection */
 .grid {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 20px auto;
 }
 
-/* LES CASES : Elles s'adaptent à l'image */
+/* LES CASES : Largeur fixe, Hauteur automatique */
 .hero-card, .slot {
-    width: 75px; /* Tu peux changer cette largeur, la hauteur suivra */
+    width: 75px; 
     height: auto; 
     background-color: #1a1f26;
     border: 1px solid #333;
     border-radius: 4px;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    cursor: pointer;
 }
 
-/* L'IMAGE : Taille réelle proportionnelle (non tronquée) */
+/* L'IMAGE : Elle commande la taille de la case */
 .hero-card img, .slot img {
     width: 100%;
-    height: auto;
+    height: auto; /* Affiche l'image ENTIÈRE sans couper */
     display: block;
 }
 
-/* Cache le texte sous les images dans la grille */
+/* Masquer le texte "Doki", "aya", etc. sous les images */
 .hero-name { display: none; }
 
-/* ZONES DE DRAFT ET EQUIPES */
-.preban-zone { display: flex; gap: 10px; margin-bottom: 20px; }
-
+/* EQUIPES : Alignement Horizontal */
 .teams-area {
     display: flex;
-    flex-direction: row; /* Force l'alignement Rouge vs Bleu */
+    flex-direction: row; /* Force l'alignement côte à côte */
     justify-content: center;
-    gap: 60px;
+    gap: 50px;
     width: 100%;
     margin-top: 30px;
 }
@@ -65,27 +57,23 @@ header { text-align: center; margin-bottom: 20px; }
     align-items: center;
 }
 
-/* Force les 5 persos d'une équipe à être côte à côte */
 .team-row {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row; /* Les slots sont côte à côte */
     gap: 8px;
-    margin-top: 10px;
 }
 
-/* ÉTATS SPÉCIAUX */
-.active-preban { border: 2px solid #ff004c; min-height: 100px; width: 75px; }
+/* ETATS */
+.preban-zone { display: flex; gap: 10px; margin-bottom: 20px; }
+.active-preban { border: 2px solid #ff004c; min-height: 80px; width: 75px; }
 #red-3, #blue-3 { border: 2px solid #ffd700; }
 .slot.banned img { filter: grayscale(100%) brightness(30%); }
 
-#status-message { font-weight: bold; margin-bottom: 15px; height: 25px; }
-
 #reset-btn {
-    margin-top: 40px;
-    padding: 12px 25px;
+    margin-top: 30px;
+    padding: 10px 20px;
     background: transparent;
     border: 2px solid #00f2ff;
     color: #00f2ff;
     cursor: pointer;
-    font-weight: bold;
 }
